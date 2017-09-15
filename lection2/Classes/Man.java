@@ -2,14 +2,15 @@ import java.sql.Date;
 
 public class Man {
 
-private String name;
-private String surname;
-private Date birthdate;
+protected  String name;
+protected  String surname;
+protected  int age;
 
-
-public Man ()
+Man(String name,String surname,int age)
 {
-System.out.println("This is class Man");
+this.name= name;
+this.surname = surname;
+this.age = age;
 }
 
 public String getName(){
@@ -24,10 +25,10 @@ return this.surname;
 public void setsurname(String surname){
 this.surname = surname;
 }
-public Date getbirthdate(){
-return this.birthdate;
+public int getbirthdate(){
+return this.age;
 }
 public void setburthdate(Date birthdate){
-this.birthdate = birthdate;
+this.age = age;
 }
 }

@@ -2,10 +2,10 @@ public class Instruments {
 int number;
 String type;
 
-Instruments(){
-	System.out.println("This is class Instruments");
-	
-}
+public Instruments(int number,String type){
+	this.number = number;
+	this.type = type;
+	}
 
 public int getNumber() {
 	return number;
@@ -22,5 +22,12 @@ public String getType() {
 public void setType(String type) {
 	this.type = type;
 }
+
+@Override
+public String toString() {
+		return "id" +this.number + " " + this.type;
+}
+
+
 
 }

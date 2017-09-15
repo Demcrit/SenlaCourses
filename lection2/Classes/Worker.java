@@ -5,8 +5,12 @@ String position;
 Idcard card;
 Instruments instrument;
 
-public Worker(){
-	System.out.println("This is class Worker");
+public Worker(String name,String surname,int age,String position,
+		Idcard card,Instruments instrument){
+	super(name,surname,age);
+	this.position = position;
+	this.card = card;
+	this.instrument=instrument; 
 	}
 
 public String getPosition() {
@@ -27,4 +31,11 @@ public Instruments getInstrument() {
 public void setInstrument(Instruments instrument) {
 	this.instrument = instrument;
 }
+
+@Override
+public String toString() {
+		return "Name: " + super.name + " Surname: " + super.surname +" Age: "+
+        super.age + " Position: " + this.position +" Card: " + this.card + " Instrument: " + this.instrument;
+}
+
 }
