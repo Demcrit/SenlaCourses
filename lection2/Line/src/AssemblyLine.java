@@ -11,9 +11,9 @@
 	public IProduct assembleProduct(IProduct spectacles) {
     		
 		
-		spectacles.installHousing(HousingStep.buildProductPart());
-		spectacles.installLenses(LensesStep.buildProductPart());
-		spectacles.installArches(ArchesStep.buildProductPart());
+		spectacles.installHousing(housing.buildProductPart());
+		spectacles.installLenses(lenses.buildProductPart());
+		spectacles.installArches(archers.buildProductPart());
 			return spectacles;
   }
  	}
