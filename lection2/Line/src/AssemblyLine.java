@@ -1,15 +1,20 @@
 ﻿public class AssemblyLine implements IAssemblyLine {
-		
+    private ILineStep housing;
+    private ILineStep lenses;
+    private ILineStep archers;
+    
+    public AssemblyLine(ILineStep housing, ILineStep lenses, ILineStep archers) {
+        this.housing = housing;
+        this.lenses = lenses;
+        this.archers = archers;
+    }
 	public IProduct assembleProduct(IProduct spectacles) {
     		
-		ILineStep HousingStep = new HousingStep();
-		spectacles.installHousing( HousingStep.buildProductPart() );
-		ILineStep LensesStep = new LensesStep();
-		spectacles.installLenses( LensesStep.buildProductPart() );
-		ILineStep ArchesStep = new ArchesStep();
-		spectacles.installArches( ArchesStep.buildProductPart() );
 		
-	return spectacles;
+		spectacles.installHousing(HousingStep.buildProductPart());
+		spectacles.installLenses(LensesStep.buildProductPart());
+		spectacles.installArches(ArchesStep.buildProductPart());
+			return spectacles;
   }
  	}
   
