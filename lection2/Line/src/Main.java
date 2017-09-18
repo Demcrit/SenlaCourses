@@ -1,11 +1,13 @@
 public class Main {
 public static void main(String[] args) {
-
-	AssemblyLine spect = new AssemblyLine();
-	System.out.println("Assembly Complete!");
+                ILineStep HousingStep = new HousingStep();
+		ILineStep LensesStep = new LensesStep();
+		ILineStep ArchesStep = new ArchesStep();
+	        AssemblyLine spect = new AssemblyLine(HousingStep, LensesStep, ArchesStep);
+	        System.out.println("Assembly Complete!");
 	
-	Spectacles spectacles = (Spectacles)spect.assembleProduct( new Spectacles() );
-	System.out.println("Take your new spectacles: " + spectacles);
+        	Spectacles spectacles = (Spectacles)spect.assembleProduct(new Spectacles() );
+	        System.out.println("Take your new spectacles: " + spectacles);
 	    
 	}
 }
