@@ -3,25 +3,25 @@ package com.senla.project.model;
 import com.senla.project.model.enums.OrderStatus;
 
 public class Order {
-	
-	private int id;
+
+	private int number;
 	private Mechanic mechanic;
-	private WorkPlace workplace;
+	private Workplace workplace;
 	private Task task;
 	private OrderStatus orderstatus = OrderStatus.PERFORMED;
-	
-	public Order (Mechanic mechanic,WorkPlace workplace,Task task){
+
+	public Order(Mechanic mechanic, Workplace workplace, Task task) {
 		this.mechanic = mechanic;
 		this.workplace = workplace;
 		this.task = task;
 	}
 
 	public int getId() {
-		return id;
+		return number;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.number = id;
 	}
 
 	public Mechanic getMechanic() {
@@ -32,11 +32,11 @@ public class Order {
 		this.mechanic = mechanic;
 	}
 
-	public WorkPlace getWorkplace() {
+	public Workplace getWorkplace() {
 		return workplace;
 	}
 
-	public void setWorkplace(WorkPlace workplace) {
+	public void setWorkplace(Workplace workplace) {
 		this.workplace = workplace;
 	}
 
@@ -58,11 +58,9 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "Order [id=" + id + ", mechanic=" + mechanic + ", workplace=" + workplace + ", task=" + task
-				+ ", orderstatus=" + orderstatus + "]";
+		String str = String.format("Number: ","Mechanic: ", "Workplace: ", "Task: ", "OrderStatus: ",this.number, this.mechanic,
+				this.workplace, this.task, this.orderstatus);
+		return str;
 	}
-	
-	
-	
 
 }

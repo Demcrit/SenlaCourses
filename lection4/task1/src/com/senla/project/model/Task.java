@@ -51,8 +51,9 @@ public class Task {
 
 	@Override
 	public String toString() {
-		return "Task [commonTask=" + commonTask + ", orderDate=" + orderDate + ", startDate=" + startDate + ", endDate="
-				+ endDate + ", price=" + price + "]";
+		String str = String.format("CommonTask: ","OrderDate: ","StartDate: ","EndDate: ","Price: ", this.commonTask,
+				this.orderDate,this.startDate,this.endDate,this.price);
+		return str;
 	}
 	
 	

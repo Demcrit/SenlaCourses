@@ -1,22 +1,15 @@
 package com.senla.project.model;
 
 public class Mechanic {
-private int id;
 private String fullName;
 private Order currenOrder;
 
-public Mechanic (int id,String fullName,Order currentOrder){
-	this.id = id;
+public Mechanic (String fullName,Order currentOrder){
 	this.fullName = fullName;
 	this.currenOrder = currentOrder;
 }
 
-public int getId() {
-	return id;
-}
-public void setId(int id) {
-	this.id = id;
-}
+
 public String getFullName() {
 	return fullName;
 }
@@ -31,7 +24,8 @@ public void setCurrenOrder(Order currenOrder) {
 }
 @Override
 public String toString() {
-	return "Mechanic [id=" + id + ", fullName=" + fullName + ", currenOrder=" + currenOrder + "]";
+	String str = String.format("Mechanic: %s %o", this.fullName,this.currenOrder);
+	return str;
 }
 
 
