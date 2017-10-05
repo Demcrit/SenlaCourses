@@ -8,13 +8,14 @@ import com.senla.project.model.Order;
 import com.senla.project.model.enums.OrderStatus;
 import com.senla.project.stores.OrderStore;
 
-public class OrderService implements IOrderService{
+public class OrderService implements IOrderService {
 
-	OrderStore orderStore = new OrderStore();
+	private OrderStore orderStore = new OrderStore();
+
 	@Override
 	public void addOrder(Order order) {
 		orderStore.addOrder(order);
-		
+
 	}
 
 	@Override
@@ -25,20 +26,20 @@ public class OrderService implements IOrderService{
 	@Override
 	public void moveOrder(Order order, int days) {
 		orderStore.moveOrder(order, days);
-		
+
 	}
 
 	@Override
 	public List<Order> getOrders() {
-	return orderStore.getOrders();	
+		return orderStore.getOrders();
 	}
 
 	@Override
 	public List<Order> getOrdersByStatus(OrderStatus orderStatus) {
 		return orderStore.getOrderByStatus(orderStatus);
 	}
-	
-	public Order getDirectOrder(int orderNumber) throws NoSuchDataException{
+
+	public Order getDirectOrder(int orderNumber) throws NoSuchDataException {
 		return orderStore.getDirectOrder(orderNumber);
 	}
 

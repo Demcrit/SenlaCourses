@@ -7,7 +7,7 @@ import com.senla.project.model.Workplace;
 
 public class WorkplaceStore {
 
-	List<Workplace> workplaces;
+	private List<Workplace> workplaces;
 
 	public void addWorkplace(Workplace workplace) {
 		workplaces.add(workplace);

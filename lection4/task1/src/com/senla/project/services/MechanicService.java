@@ -28,12 +28,6 @@ public class MechanicService implements IMechanicService {
 	}
 
 	@Override
-	public void getAllMechanics() {
-		mechanicStore.getAllMechanics();
-
-	}
-
-	@Override
 	public List<Mechanic> sortMechanicsByName() {
 		return mechanicStore.sortMechanicsByName();
 	}
@@ -42,8 +36,8 @@ public class MechanicService implements IMechanicService {
 	public List<Mechanic> sortMechanicsByWork() {
 		return mechanicStore.sortMechanicsByWork();
 	}
-	
-	public List<Mechanic> getAll(){
+
+	public List<Mechanic> getAll() {
 		return mechanicStore.getAllMechanics();
 	}
 

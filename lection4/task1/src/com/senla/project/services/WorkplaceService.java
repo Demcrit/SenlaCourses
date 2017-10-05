@@ -7,17 +7,18 @@ import com.senla.project.stores.WorkplaceStore;
 
 public class WorkplaceService implements IWorkplaceService {
 
-	WorkplaceStore workplaceStore = new WorkplaceStore();
+	private WorkplaceStore workplaceStore = new WorkplaceStore();
+
 	@Override
 	public void addWorkplace(Workplace workplace) {
 		workplaceStore.addWorkplace(workplace);
-		
+
 	}
 
 	@Override
 	public void deleteWorkplace(Workplace workplace) {
 		workplaceStore.deleteWorkplace(workplace);
-		
+
 	}
 
 	@Override

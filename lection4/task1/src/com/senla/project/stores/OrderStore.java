@@ -12,7 +12,6 @@ import com.senla.project.comparators.OrderStartDateComparator;
 import com.senla.project.exceptions.NoSuchDataException;
 
 public class OrderStore {
-
 	private List<Order> orders;
 
 	public List<Order> getOrders() {
