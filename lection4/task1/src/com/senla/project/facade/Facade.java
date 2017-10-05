@@ -1,4 +1,4 @@
-package com.senla.project.realization;
+package com.senla.project.facade;
 import java.util.List;
 
 import com.senla.project.exceptions.NoSuchDataException;
@@ -7,7 +7,7 @@ import com.senla.project.model.Order;
 import com.senla.project.model.Workplace;
 import com.senla.project.model.enums.OrderStatus;
 import com.senla.project.services.*;
-public class Facade {
+public class Facade implements IFacade {
 	
 	private MechanicService mechanicService = new MechanicService();
 	private WorkplaceService workplaceService = new WorkplaceService();
@@ -28,10 +28,7 @@ public class Facade {
 		return mechanicService.findFreeMechanic();
 	}
 
-	public void getAllMechanics() {
-		mechanicService.getAllMechanics();
-		
-	}
+	
 
 	public List<Mechanic> sortMechanicsByName() {
 		return mechanicService.sortMechanicsByName();
