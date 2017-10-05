@@ -28,8 +28,6 @@ public class Facade implements IFacade {
 		return mechanicService.findFreeMechanic();
 	}
 
-	
-
 	public List<Mechanic> sortMechanicsByName() {
 		return mechanicService.sortMechanicsByName();
 	}
