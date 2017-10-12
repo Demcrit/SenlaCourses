@@ -1,0 +1,46 @@
+package com.senla.project.services;
+
+import java.util.List;
+
+import com.senla.project.exceptions.NoSuchDataException;
+import com.senla.project.interfaces.IOrderService;
+import com.senla.project.model.Order;
+import com.senla.project.model.enums.OrderStatus;
+import com.senla.project.stores.OrderStore;
+
+public class OrderService implements IOrderService {
+
+	private OrderStore orderStore = new OrderStore();
+
+	@Override
+	public void addOrder(Order order) {
+		orderStore.addOrder(order);
+
+	}
+
+	@Override
+	public void deleteOrder(Order order) {
+		orderStore.deleteOrder(order);
+	}
+
+	@Override
+	public void moveOrder(Order order, int days) {
+		orderStore.moveOrder(order, days);
+
+	}
+
+	@Override
+	public List<Order> getOrders() {
+		return orderStore.getOrders();
+	}
+
+	@Override
+	public List<Order> getOrdersByStatus(OrderStatus orderStatus) {
+		return orderStore.getOrderByStatus(orderStatus);
+	}
+
+	public Order getDirectOrder(int orderNumber) throws NoSuchDataException {
+		return orderStore.getDirectOrder(orderNumber);
+	}
+
+}
