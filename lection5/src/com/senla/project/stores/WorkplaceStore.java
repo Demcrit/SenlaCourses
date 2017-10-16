@@ -6,10 +6,16 @@ import com.senla.project.exceptions.NoSuchDataException;
 import com.senla.project.model.Workplace;
 
 public class WorkplaceStore {
-
+	private int nextId;
 	private List<Workplace> workplaces;
 
+	public List<Workplace> getWorkplaces() {
+		return workplaces;
+	}
+
 	public void addWorkplace(Workplace workplace) {
+		workplace.setId(nextId);
+		nextId++;
 		workplaces.add(workplace);
 	}
 

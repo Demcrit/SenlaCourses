@@ -1,6 +1,5 @@
 package com.senla.project.ui.entity;
 import org.apache.logging.log4j.Logger;
-
 import com.senla.project.ui.api.IMenuController;
 import com.senla.project.ui.utils.InputUtil;
 

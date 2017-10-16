@@ -4,21 +4,26 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import com.senla.project.model.Order;
+import com.senla.project.model.Workplace;
 import com.senla.project.model.enums.OrderStatus;
 import com.senla.project.comparators.OrderStartDateComparator;
 import com.senla.project.exceptions.NoSuchDataException;
 
 public class OrderStore {
 	private List<Order> orders;
+	private int nextId;
 
 	public List<Order> getOrders() {
 		return orders;
 	}
 
 	public void addOrder(Order order) {
+		order.setId(nextId);
+		nextId++;
 		orders.add(order);
 
 	}
@@ -86,4 +91,19 @@ public class OrderStore {
 		}
 		return list;
 	}
+
+	public List<Workplace> getFreePlacesInDate(Date date) {
+        WorkplaceStore wrk = new WorkplaceStore();
+		List<Workplace> list = new ArrayList<>();
+
+		for (Workplace workPlace : wrk.getWorkplaces()) {
+				if (workPlace.getOrder() == null) {
+					list.add(workPlace);
+				} else if (workPlace.getOrder().getTask().getEndDate().before(date)
+						&& workPlace.getOrder().getTask().getStartDate().after(date)) {
+					list.add(workPlace);
+				}
+			}
+		return list;
+}
 }

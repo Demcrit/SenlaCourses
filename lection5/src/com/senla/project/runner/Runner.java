@@ -15,9 +15,9 @@ public class Runner {
 
 	public static void main(String[] args) throws FileAlreadyExistsException {
 
-		Mechanic mechanic1 = new Mechanic("Sergey Zabashnyj", null);
-		Mechanic mechanic2 = new Mechanic("King Lich", null);
-		Mechanic mechanic3 = new Mechanic("Ivan Petrov", null);
+		Mechanic mechanic1 = new Mechanic("Sergey Zabashnyj");
+		Mechanic mechanic2 = new Mechanic("King Lich");
+		Mechanic mechanic3 = new Mechanic("Ivan Petrov");
 		fd.addMechanic(mechanic1);
 		fd.addMechanic(mechanic2);
 		fd.addMechanic(mechanic3);

@@ -21,11 +21,8 @@ public class InputUtil {
 	
 	public static Mechanic inputMechanic(){
 		printer.printMessage("Enter full name");
-		String fname = sc.next();
-		printer.printMessage("Enter order");
-		Order order = inputOrder();
-		
-		Mechanic mechanic = new Mechanic(fname,order); 
+		String fname = sc.nextLine();
+		Mechanic mechanic = new Mechanic(fname); 
 		return mechanic;
 	}
 	

@@ -1,5 +1,6 @@
 package com.senla.project.facade;
 
+import java.util.Date;
 import java.util.List;
 
 import com.senla.project.exceptions.NoSuchDataException;
@@ -10,11 +11,17 @@ import com.senla.project.model.enums.OrderStatus;
 import com.senla.project.services.*;
 
 public class Facade implements IFacade {
+	
+	private final static IFacade FACADE = new Facade();
 
 	private MechanicService mechanicService = new MechanicService();
 	private WorkplaceService workplaceService = new WorkplaceService();
 	private OrderService orderService = new OrderService();
 
+	public static IFacade getFACADE(){
+		return FACADE;
+	}
+	
 	public void addMechanic(Mechanic mechanic) {
 		mechanicService.addMechanic(mechanic);
 
@@ -79,5 +86,15 @@ public class Facade implements IFacade {
 
 	public Workplace findFreeWorkPlace() throws NoSuchDataException {
 		return workplaceService.findFreeWorkPlace();
+	}
+
+	@Override
+	public List<Workplace> getFreePlacesInDate(Date date) {
+		return orderService.getFreePlacesInDate(date);
+	}
+
+	@Override
+	public Mechanic getMechanic(int id) throws NoSuchDataException {
+		return mechanicService.getMechanic(id);
 	}
 }

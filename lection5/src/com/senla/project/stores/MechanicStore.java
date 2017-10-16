@@ -4,14 +4,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import com.senla.project.comparators.MechanicFullNameComparator;
+import com.senla.project.exceptions.NoSuchDataException;
 import com.senla.project.model.Mechanic;
 import static com.senla.project.utils.PrintUtil.*;
 
 public class MechanicStore {
 	private final static MechanicFullNameComparator MECHANIC_NAME_COMPARATOR = new MechanicFullNameComparator();
 	private List<Mechanic> mechanics = new ArrayList<>();
-
+	private int nextId;
+	
 	public void addMechanic(Mechanic mechanic) {
+		mechanic.setId(nextId);
+		nextId++;
 		mechanics.add(mechanic);
 	}
 
@@ -58,6 +62,16 @@ public class MechanicStore {
 
 	public List<Mechanic> getAll() {
 		return mechanics;
+	}
+	
+	public Mechanic getMechanic(int id) throws NoSuchDataException {
+
+		for (Mechanic mechanic : mechanics) {
+			if (mechanic.getId() == id) {
+				return mechanic;
+			}
+		}
+		throw new NoSuchDataException();
 	}
 
 }
