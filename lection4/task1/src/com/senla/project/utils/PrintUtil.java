@@ -1,5 +1,7 @@
 package com.senla.project.utils;
 
+import java.util.List;
+
 public class PrintUtil {
 
 	public static void printMessage(String message) {
@@ -15,4 +17,10 @@ public class PrintUtil {
 		System.out.println(object);
 	}
 
+	public static void printList(List<Object> object) {
+
+		for (Object item : object) {
+			System.out.println(item.toString());
+		}
+	}
 }

@@ -4,7 +4,7 @@ import com.senla.project.model.enums.OrderStatus;
 
 public class Order {
 
-	private int number;
+	private int id;
 	private Mechanic mechanic;
 	private Workplace workplace;
 	private Task task;
@@ -17,11 +17,11 @@ public class Order {
 	}
 
 	public int getId() {
-		return number;
+		return id;
 	}
 
 	public void setId(int id) {
-		this.number = id;
+		this.id = id;
 	}
 
 	public Mechanic getMechanic() {
@@ -58,7 +58,7 @@ public class Order {
 
 	@Override
 	public String toString() {
-		String str = String.format("Number: ","Mechanic: ", "Workplace: ", "Task: ", "OrderStatus: ",this.number, this.mechanic,
+		String str = String.format("Number: ","Mechanic: ", "Workplace: ", "Task: ", "OrderStatus: ",this.id, this.mechanic,
 				this.workplace, this.task, this.orderstatus);
 		return str;
 	}

@@ -1,5 +1,6 @@
 package com.senla.project.facade;
 
+import java.util.Date;
 import java.util.List;
 
 import com.senla.project.exceptions.NoSuchDataException;
@@ -38,5 +39,8 @@ public interface IFacade {
 	public void deleteWorkplace(Workplace workplace);
 
 	public Workplace findFreeWorkPlace() throws NoSuchDataException;
+	
+	public List<Workplace> getFreePlacesInDate(Date date);
+	public Mechanic getMechanic(int id) throws NoSuchDataException;
 
 }

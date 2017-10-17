@@ -18,7 +18,7 @@ public class TextUtil {
 		FILE_PATH = path;
 	}
 
-	public void writeToFile(List list) {
+	public void writeToFile(List<?> list) {
 		arrayFromList = arrayToList(list);
 		Path filePath = Paths.get(FILE_PATH);
 		try {
@@ -30,16 +30,10 @@ public class TextUtil {
 		fileWorker.writeToFile(arrayFromList);
 	}
 
-	public void readFromFile() {
+	public String[] readFromFile(String file) {
 		fileWorker = new TextFileWorker(FILE_PATH);
-		Object[] readedValues = fileWorker.readFromFile();
-		for (int i = 0; i < arrayFromList.length; i++) {
-			if (!readedValues[i].equals(arrayFromList[i])) {
-				throw new RuntimeException("Error. Not equal values: " + readedValues[i] + " and " + arrayFromList[i]);
-			}
-		}
-		for (Object object : readedValues) {
-			PrintUtil.printObject(object);
+		String[] readedValues = fileWorker.readFromFile();
+		return readedValues;
 		}
 	}
-}
+

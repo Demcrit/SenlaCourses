@@ -1,15 +1,20 @@
 package com.senla.project.model;
 
 public class Workplace {
-	private int number;
+	private int id;
 	private Order order;
 
+	public void WorkPlace(int id, Order order) {
+		this.id = id;
+		this.order = order;
+	}
+
 	public int getId() {
-		return number;
+		return id;
 	}
 
 	public void setId(int number) {
-		this.number = number;
+		this.id = number;
 	}
 
 	public Order getOrder() {
@@ -22,7 +27,7 @@ public class Workplace {
 
 	@Override
 	public String toString() {
-		String str = String.format("Worplace: %d %o", this.number, this.order);
+		String str = String.format("Worplace: %d %o", this.id, this.order);
 		return str;
 	}
 
