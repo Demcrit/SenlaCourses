@@ -2,6 +2,7 @@ package com.senla.project.services;
 
 import java.util.List;
 
+import com.senla.project.exceptions.NoSuchDataException;
 import com.senla.project.interfaces.IMechanicService;
 import com.senla.project.model.Mechanic;
 import com.senla.project.stores.MechanicStore;
@@ -39,6 +40,10 @@ public class MechanicService implements IMechanicService {
 
 	public List<Mechanic> getAll() {
 		return mechanicStore.getAllMechanics();
+	}
+	
+	public Mechanic getMechanic(int id) throws NoSuchDataException {
+		return mechanicStore.getMechanic(id);
 	}
 
 }
