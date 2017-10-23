@@ -24,11 +24,11 @@ public class AutoManagerConfigLoader {
 		boolean delayOrders = Boolean.valueOf(property.getProperty("delayOrders"));
 		boolean removeOrder = Boolean.valueOf(property.getProperty("removeOrder"));
 
-		properties = new AutoManagerConfigStorage();
+		properties = new AutoManagerConfigStorage(property.getProperty("dbPath"), property.getProperty("dbCSVPath"), addRemoveWorkpalces, removeOrder,
+				delayOrders);
 	}
 
 	public static AutoManagerConfigStorage getProperties() {
 		return AutoManagerConfigLoader.properties;
 	}
-	
 }

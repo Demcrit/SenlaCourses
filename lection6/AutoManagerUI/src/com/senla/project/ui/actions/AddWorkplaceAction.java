@@ -18,7 +18,7 @@ public class AddWorkplaceAction implements IAction {
 		if (propHolder.isAddRemoveWorkplace() == true) {
 			printMessage(MESSAGE_WORKPLACE);
 			int wpId = nextInt();
-			Facade.getInstance().addWorkplace();
+			//Facade.getInstance().addWorkplace(wokplace);
 		} else
 		{
 			printMessage(NO_PERMISSIONS);
