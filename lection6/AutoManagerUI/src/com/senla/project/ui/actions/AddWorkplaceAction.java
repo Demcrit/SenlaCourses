@@ -1,9 +1,10 @@
 package com.senla.project.ui.actions;
 
-import com.senla.project.config.AutoManagerConfigStorage;
-import com.senla.project.facade.Facade;
 import com.senla.project.ui.api.IAction;
 import static com.senla.project.utils.PrintUtil.*;
+
+import com.senla.project.config.holder.Holder;
+
 import static com.senla.project.ui.utils.GeneralScanner.*;
 public class AddWorkplaceAction implements IAction {
 
@@ -13,12 +14,10 @@ public class AddWorkplaceAction implements IAction {
 	@Override
 	public void execute() {
 		
-		AutoManagerConfigStorage propHolder = new AutoManagerConfigStorage();
-		
-		if (propHolder.isAddRemoveWorkplace() == true) {
+		if (Holder.getInstance().addRemoveWorkplace() == true) {
 			printMessage(MESSAGE_WORKPLACE);
 			int wpId = nextInt();
-			//Facade.getInstance().addWorkplace(wokplace);
+			//Facade.getInstance().addWorkplace(workplace);
 		} else
 		{
 			printMessage(NO_PERMISSIONS);

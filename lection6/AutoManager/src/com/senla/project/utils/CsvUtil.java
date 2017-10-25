@@ -1,75 +1,45 @@
 package com.senla.project.utils;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.InvalidPathException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import com.senla.project.model.Mechanic;
 
 public class CsvUtil {
-private Path path;
-private final static Logger LOG = LogManager.getLogger(CsvUtil.class);
-	
-	public CsvUtil(String path) throws InvalidPathException {
-		this.path = Paths.get(path);
-	}
+	private static final String LINE_BREAK = "\n";
+	private static final String EXPORT_SUCCESS = "Export was succesful!";
+	private static final String EXPORT_ERROR = "Export was done with errors";
 
-	/** Write String list to CSV */
-	private void exportCollection(List<String> list) {
+	private static Logger log = LogManager.getLogger(CsvUtil.class);
 
-		try (BufferedWriter bufferedWriter = Files.newBufferedWriter(path, StandardOpenOption.WRITE)) {
-
-			for (String value : list) {
-				bufferedWriter.write(value + "\n");
+	public static String writeFile(String path, List<String> values) {
+		try (FileWriter writer = new FileWriter(path)) {
+			for (String str : values) {
+				writer.append(str).append(LINE_BREAK);
 			}
-
+			return EXPORT_SUCCESS;
 		} catch (IOException e) {
-			LOG.error(e.getMessage());
+			log.error(e);
+			return EXPORT_ERROR;
 		}
 	}
 
-	/** return Mechanic list, which was splited from CSV Strings */
-	public List<Mechanic> importCollection() {
-
-		List<Mechanic> importedMechanics = new ArrayList<>();
-		try (BufferedReader bufferedReader = Files.newBufferedReader(path)) {
-
-			String readed;
-			while ((readed = bufferedReader.readLine()) != null) {
-
-				String[] result = readed.split(",");
-				Mechanic temp = new Mechanic(result[1]);
-				temp.setId(Integer.getInteger(result[0]));
-
-				importedMechanics.add(temp);
+	public static List<String> readFile(String path) {
+		List<String> result = new ArrayList<String>();
+		String line;
+		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+			while ((line = br.readLine()) != null) {
+				result.add(line);
 			}
-
+			return result;
 		} catch (IOException e) {
-			LOG.error(e.getMessage());
+			log.error(e);
+			return null;
 		}
-		return importedMechanics;
-	}
-
-	
-	/**Convert Mechanic collection from parameter to List<String> and run Method exportCollection */
-	public void exportCSV(List<Mechanic> list) {
-	
-		List<String> listToExport = new ArrayList<>();
-
-		for (Mechanic mechanic : list) {
-			String stringToCsv = new StringBuilder().append(mechanic.getId()).append(",").append(mechanic.getFullName())
-					.append(",").toString();
-			listToExport.add(stringToCsv);
-		}
-		exportCollection(listToExport);
 	}
 
 }

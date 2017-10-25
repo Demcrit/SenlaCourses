@@ -103,4 +103,13 @@ public class Facade implements IFacade {
 	public int getNextOrderId() {
 		return orderService.getNextOrdeId();
 	}
+	
+	public String importAll(){
+		return mechanicService.importAll();
+	}
+	
+	public String exportAll(){
+		return mechanicService.exportAll();
+	}
+	
 }

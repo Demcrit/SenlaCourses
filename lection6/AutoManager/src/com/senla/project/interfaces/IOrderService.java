@@ -4,8 +4,9 @@ import java.util.List;
 
 import com.senla.project.model.Order;
 import com.senla.project.model.enums.OrderStatus;
+import com.senla.project.services.IService;
 
-public interface IOrderService {
+public interface IOrderService extends IService<Order>{
 	
 	void addOrder(Order order);
 	

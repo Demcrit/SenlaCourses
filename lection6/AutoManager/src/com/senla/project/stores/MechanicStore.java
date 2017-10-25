@@ -7,14 +7,18 @@ import com.senla.project.comparators.MechanicFullNameComparator;
 import com.senla.project.exceptions.NoSuchDataException;
 import com.senla.project.model.Mechanic;
 import com.senla.project.utils.CsvUtil;
+import com.senla.project.utils.ExportUtil;
+import com.senla.project.utils.ParseUtil;
 
 import static com.senla.project.utils.PrintUtil.*;
 
 public class MechanicStore {
 	private final static MechanicFullNameComparator MECHANIC_NAME_COMPARATOR = new MechanicFullNameComparator();
+	private static final String IMPORT_ERROR = null;
+	private static final String MECHANIC_IMPORT_PATH = "1.csv";
+	private static final String IMPORT_SUCCESS = null;
 	private List<Mechanic> mechanics = new ArrayList<>();
 	private int nextId;
-	private CsvUtil csv;
 
 	public void addMechanic(Mechanic mechanic) {
 		mechanic.setId(nextId);
@@ -77,23 +81,27 @@ public class MechanicStore {
 		throw new NoSuchDataException();
 	}
 
-	public void importMechnaics() {
-
-		List<Mechanic> imported = csv.importCollection();
-
-		for (Mechanic mechanic : imported) {
-
-			for (Mechanic storeMechanic : mechanics) {
-				if (storeMechanic.getId() == mechanic.getId()) {
-					storeMechanic.setFullName(mechanic.getFullName());
-					continue;
-				}
-			}
-			mechanics.add(mechanic);
+	public String importAll() throws NoSuchDataException {
+		List<String> imported = CsvUtil.readFile(MECHANIC_IMPORT_PATH);
+		if (imported == null) {
+			return IMPORT_ERROR;
 		}
+		List<Mechanic> mechanicsToImport = ParseUtil.parseMechanics(imported);
+		for (Mechanic mechanic : mechanicsToImport) {
+			Mechanic searched = getMechanic(mechanic.getId());
+			if (searched != null) {
+				if (!mechanic.getFullName().equals(searched.getFullName())) {
+					searched.setFullName(mechanic.getFullName());
+				}
+			} else {
+				mechanics.add(mechanic);
+			}
+		}
+		return IMPORT_SUCCESS;
 	}
 
-	public void exportMechanics() {
-		csv.exportCSV(mechanics);
+	public String exportAll() {
+		List<String> export = ExportUtil.exportMechanics(getAll());
+		return CsvUtil.writeFile("mechanics_export.csv", export);
 	}
 }

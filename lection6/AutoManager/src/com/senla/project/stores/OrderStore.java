@@ -18,7 +18,7 @@ public class OrderStore {
 	private List<Order> orders;
 	private int nextId;
 
-	public OrderStore() {
+	/*public OrderStore() {
 		if (!orders.isEmpty()) {
 			List<Order> sortedList = new ArrayList<>(orders);
 			Collections.sort(sortedList, new OrderIdComparator());
@@ -27,7 +27,7 @@ public class OrderStore {
 			nextId = 1;
 		}
 	}
-
+*/
 	public List<Order> getOrders() {
 		return orders;
 	}

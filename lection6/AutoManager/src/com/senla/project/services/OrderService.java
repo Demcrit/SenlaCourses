@@ -1,5 +1,6 @@
 package com.senla.project.services;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -10,8 +11,12 @@ import com.senla.project.model.Workplace;
 import com.senla.project.model.enums.OrderStatus;
 import com.senla.project.stores.OrderStore;
 
-public class OrderService implements IOrderService {
+public class OrderService implements IOrderService,Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7053668536211178718L;
 	private OrderStore orderStore = new OrderStore();
 
 	@Override
@@ -51,6 +56,36 @@ public class OrderService implements IOrderService {
 	
 	public int getNextOrdeId(){
 		return orderStore.getNextId();
+	}
+
+	@Override
+	public void add(Order t) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String importAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String exportAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Order> getAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Order getById(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
