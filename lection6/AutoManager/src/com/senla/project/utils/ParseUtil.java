@@ -15,9 +15,6 @@ public class ParseUtil {
 		String[] parsed = input.split(PARSE_SPLIT_BASE);
 		List<String> inputArray = Arrays.asList(parsed);
 		Mechanic mechanic;
-		if (inputArray.size() < 7) {
-			return null;
-		}
 		try {
 			Integer id = Integer.parseInt(inputArray.get(0));
 			String name = inputArray.get(1);

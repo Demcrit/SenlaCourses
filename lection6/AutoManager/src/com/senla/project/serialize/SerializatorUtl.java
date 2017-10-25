@@ -1,20 +1,15 @@
 package com.senla.project.serialize;
 
-import java.io.EOFException;
-import java.io.File;
+
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.log4j.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import com.senla.project.model.Mechanic;
-import com.senla.project.model.Order;
 import com.senla.project.services.IService;
 import com.senla.project.services.MechanicService;
 import com.senla.project.services.OrderService;
