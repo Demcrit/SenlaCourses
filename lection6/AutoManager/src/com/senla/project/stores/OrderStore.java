@@ -18,6 +18,8 @@ public class OrderStore {
 	private List<Order> orders;
 	private int nextId;
 
+	
+
 	/*public OrderStore() {
 		if (!orders.isEmpty()) {
 			List<Order> sortedList = new ArrayList<>(orders);
@@ -28,10 +30,15 @@ public class OrderStore {
 		}
 	}
 */
+	
 	public List<Order> getOrders() {
 		return orders;
 	}
 
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+	
 	public int getNextId() {
 		return nextId;
 	}

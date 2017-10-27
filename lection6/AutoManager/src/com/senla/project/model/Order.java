@@ -1,9 +1,12 @@
 package com.senla.project.model;
 
+import java.io.Serializable;
+
 import com.senla.project.model.enums.OrderStatus;
 
-public class Order implements Cloneable {
+public class Order implements Cloneable,Serializable {
 
+	private static final long serialVersionUID = -5834603427039888853L;
 	private int id;
 	private Mechanic mechanic;
 	private Workplace workplace;

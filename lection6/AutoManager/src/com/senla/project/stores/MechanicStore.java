@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import com.senla.project.comparators.MechanicFullNameComparator;
+import com.senla.project.config.holder.Holder;
 import com.senla.project.exceptions.NoSuchDataException;
 import com.senla.project.model.Mechanic;
 import com.senla.project.utils.CsvUtil;
@@ -14,10 +15,17 @@ import static com.senla.project.utils.PrintUtil.*;
 
 public class MechanicStore {
 	private final static MechanicFullNameComparator MECHANIC_NAME_COMPARATOR = new MechanicFullNameComparator();
-	private static final String IMPORT_ERROR = null;
-	private static final String MECHANIC_IMPORT_PATH = "1.csv";
-	private static final String IMPORT_SUCCESS = null;
 	private List<Mechanic> mechanics = new ArrayList<>();
+	
+	
+	public List<Mechanic> getMechanics() {
+		return mechanics;
+	}
+
+	public void setMechanics(List<Mechanic> mechanics) {
+		this.mechanics = mechanics;
+	}
+
 	private int nextId;
 
 	public void addMechanic(Mechanic mechanic) {
@@ -81,10 +89,10 @@ public class MechanicStore {
 		throw new NoSuchDataException();
 	}
 
-	public String importAll() throws NoSuchDataException {
-		List<String> imported = CsvUtil.readFile(MECHANIC_IMPORT_PATH);
+	public boolean importAll() throws NoSuchDataException {
+		List<String> imported = CsvUtil.readFile(Holder.getInstance().getDBCsvPath());
 		if (imported == null) {
-			return IMPORT_ERROR;
+			return false;
 		}
 		List<Mechanic> mechanicsToImport = ParseUtil.parseMechanics(imported);
 		for (Mechanic mechanic : mechanicsToImport) {
@@ -97,11 +105,11 @@ public class MechanicStore {
 				mechanics.add(mechanic);
 			}
 		}
-		return IMPORT_SUCCESS;
+		return true;
 	}
 
-	public String exportAll() {
+	public boolean exportAll() {
 		List<String> export = ExportUtil.exportMechanics(getAll());
-		return CsvUtil.writeFile("mechanics_export.csv", export);
+		return CsvUtil.writeFile(Holder.getInstance().getDBCsvPath(), export);
 	}
 }

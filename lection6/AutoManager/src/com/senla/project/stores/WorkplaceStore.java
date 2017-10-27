@@ -13,6 +13,10 @@ public class WorkplaceStore {
 		return workplaces;
 	}
 
+	public void setWorkplaces(List<Workplace> workplaces) {
+		this.workplaces = workplaces;
+	}
+
 	public void addWorkplace(Workplace workplace) {
 		workplace.setId(nextId);
 		nextId++;
@@ -25,12 +29,12 @@ public class WorkplaceStore {
 	}
 
 	public Workplace findFreeWorkPlace() throws NoSuchDataException {
-		
-		for(Workplace workplace:workplaces){
-			if(workplace.getOrder()==null){
+
+		for (Workplace workplace : workplaces) {
+			if (workplace.getOrder() == null) {
 				return workplace;
 			}
-			
+
 		}
 		throw new NoSuchDataException();
 	}

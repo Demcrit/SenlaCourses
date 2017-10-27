@@ -1,6 +1,10 @@
 package com.senla.project.model;
 
-public class Mechanic {
+import java.io.Serializable;
+
+public class Mechanic implements Serializable {
+	
+	private static final long serialVersionUID = 2474702210933977527L;
 	private int id;
 	private String fullName;
 	private Order currenOrder;

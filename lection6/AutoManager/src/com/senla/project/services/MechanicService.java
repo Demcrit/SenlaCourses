@@ -8,11 +8,8 @@ import com.senla.project.interfaces.IMechanicService;
 import com.senla.project.model.Mechanic;
 import com.senla.project.stores.MechanicStore;
 
-public class MechanicService implements IMechanicService,Serializable {
+public class MechanicService implements IMechanicService, Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private MechanicStore mechanicStore = new MechanicStore();
 
@@ -46,32 +43,25 @@ public class MechanicService implements IMechanicService,Serializable {
 	public List<Mechanic> getAll() {
 		return mechanicStore.getAllMechanics();
 	}
-	
+
 	public Mechanic getMechanic(int id) throws NoSuchDataException {
 		return mechanicStore.getMechanic(id);
 	}
 
-	@Override
-	public void add(Mechanic t) {
-		// TODO Auto-generated method stub
-		
+	public List<Mechanic> getMechanics() {
+		return mechanicStore.getMechanics();
 	}
 
-	@Override
-	public String importAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public void setMechanics(List<Mechanic> mechanics) {
+		mechanicStore.setMechanics(mechanics);
 	}
 
-	@Override
-	public String exportAll() {
+	public boolean exportAll() {
 		return mechanicStore.exportAll();
 	}
-
-	@Override
-	public Mechanic getById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public boolean importAll() throws NoSuchDataException{
+		return mechanicStore.importAll();
 	}
 
 }

@@ -2,19 +2,26 @@ package com.senla.project.facade;
 
 import java.util.Date;
 import java.util.List;
+
+import com.senla.project.config.holder.Holder;
 import com.senla.project.exceptions.NoSuchDataException;
 import com.senla.project.model.Mechanic;
 import com.senla.project.model.Order;
 import com.senla.project.model.Workplace;
 import com.senla.project.model.enums.OrderStatus;
+import com.senla.project.serialize.SerializatorUtl;
+import com.senla.project.serialize.Storage;
 import com.senla.project.services.*;
 
 public class Facade implements IFacade {
 
 	private static IFacade instance;
-	private Facade() {}
+
+	private Facade() {
+	}
+
 	public static IFacade getInstance() {
-		if (instance==null) {
+		if (instance == null) {
 			instance = new Facade();
 		}
 		return instance;
@@ -99,17 +106,38 @@ public class Facade implements IFacade {
 	public Mechanic getMechanic(int id) throws NoSuchDataException {
 		return mechanicService.getMechanic(id);
 	}
+
 	@Override
 	public int getNextOrderId() {
 		return orderService.getNextOrdeId();
 	}
-	
-	public String importAll(){
+
+	public boolean importAll() throws NoSuchDataException {
 		return mechanicService.importAll();
 	}
-	
-	public String exportAll(){
+
+	public boolean exportAll() {
 		return mechanicService.exportAll();
 	}
-	
+
+	public void serialize() {
+		String path = Holder.getInstance().getDBPath();
+		Storage store = new Storage();
+		store.setMechanics(mechanicService.getMechanics());
+		store.setOrders(orderService.getOrders());
+		store.setWorkplaces(workplaceService.getWorkplaces());
+		SerializatorUtl.writeObject(store, path);
+	}
+
+	public void deserialize() {
+		String path = Holder.getInstance().getDBPath();
+		Storage store = (Storage) SerializatorUtl.readObject(path);
+		if (store == null) {
+			return;
+		}
+		mechanicService.setMechanics(store.getMechanics());
+		orderService.setOrder(store.getOrders());
+		workplaceService.setWorkplaces(store.getWorkplaces());
+	}
+
 }
