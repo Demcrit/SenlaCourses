@@ -43,7 +43,9 @@ public interface IFacade {
 	public List<Workplace> getFreePlacesInDate(Date date);
 	public Mechanic getMechanic(int id) throws NoSuchDataException;
 	public int getNextOrderId();
-	public String importAll();
-	public String exportAll();
+	public boolean importAll() throws NoSuchDataException;
+	public boolean exportAll();
+	public void serialize();
+	public void deserialize();
 
 }

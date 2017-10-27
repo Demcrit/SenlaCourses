@@ -1,10 +1,11 @@
 package com.senla.project.interfaces;
 
 import java.util.List;
-import com.senla.project.model.Mechanic;
-import com.senla.project.services.IService;
 
-public interface IMechanicService extends IService<Mechanic> {
+import com.senla.project.exceptions.NoSuchDataException;
+import com.senla.project.model.Mechanic;
+
+public interface IMechanicService  {
 
 	void addMechanic(Mechanic mechanic);
 
@@ -17,4 +18,7 @@ public interface IMechanicService extends IService<Mechanic> {
 	List<Mechanic> sortMechanicsByWork();
 
 	public List<Mechanic> getAll();
+	
+	public boolean exportAll();
+	public boolean importAll() throws NoSuchDataException;
 }

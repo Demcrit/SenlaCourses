@@ -1,6 +1,10 @@
 package com.senla.project.model;
 
-public class Workplace {
+import java.io.Serializable;
+
+public class Workplace implements Serializable {
+	
+	private static final long serialVersionUID = -7998844242514648208L;
 	private int id;
 	private Order order;
 

@@ -16,6 +16,7 @@ public class Runner {
 		Facade.getInstance().addMechanic(mechanic3);
 				
 		Facade.getInstance().exportAll();
+		Facade.getInstance().serialize();
 		
 
 		

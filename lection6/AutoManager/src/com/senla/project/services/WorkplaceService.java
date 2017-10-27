@@ -28,34 +28,12 @@ public class WorkplaceService implements IWorkplaceService {
 		return workplaceStore.findFreeWorkPlace();
 	}
 
-	@Override
-	public void add(Workplace t) {
-		// TODO Auto-generated method stub
-		
+	public List<Workplace> getWorkplaces() {
+		return workplaceStore.getWorkplaces();
 	}
 
-	@Override
-	public String importAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String exportAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Workplace> getAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Workplace getById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+	public void setWorkplaces(List<Workplace> workplaces) {
+		workplaceStore.setWorkplaces(workplaces);
 	}
 
 }
