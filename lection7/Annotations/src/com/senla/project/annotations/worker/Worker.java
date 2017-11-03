@@ -6,6 +6,19 @@ import com.senla.project.annotaions.ConfigProperty;
 
 public class Worker {
 	private static final String PATH = "prop.properties";
+	private static Worker instance;
+
+	private Worker() {
+
+	}
+
+	public static Worker getInstance() throws ReflectiveOperationException {
+
+		if (instance == null) {
+			instance = new Worker();
+		}
+		return instance;
+	}
 
 	public void proccesing(Object object) {
 		Class<? extends Object> cl = object.getClass();
@@ -33,7 +46,7 @@ public class Worker {
 				}
 
 				Object newValue = values.getValue(configName, propertyName, type);
-
+				Boolean oldValues = field.isAccessible();
 				field.setAccessible(true);
 				try {
 					field.set(object, newValue);
@@ -43,6 +56,7 @@ public class Worker {
 					e.printStackTrace();
 				} finally {
 					field.setAccessible(false);
+					field.setAccessible(oldValues);
 				}
 
 			}
