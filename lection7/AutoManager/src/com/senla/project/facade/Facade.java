@@ -3,24 +3,35 @@ package com.senla.project.facade;
 import java.util.Date;
 import java.util.List;
 
+import com.senla.project.annotaions.ConfigProperty;
+import com.senla.project.annotations.worker.Worker;
 import com.senla.project.config.holder.Holder;
 import com.senla.project.exceptions.NoSuchDataException;
 import com.senla.project.injector.Inject;
-import com.senla.project.injector.Injector;
+import com.senla.project.interfaces.IMechanicService;
+import com.senla.project.interfaces.IOrderService;
+import com.senla.project.interfaces.IWorkplaceService;
 import com.senla.project.model.Mechanic;
 import com.senla.project.model.Order;
 import com.senla.project.model.Workplace;
 import com.senla.project.model.enums.OrderStatus;
 import com.senla.project.serialize.SerializatorUtl;
 import com.senla.project.serialize.Storage;
-import com.senla.project.services.*;
 
 public class Facade implements IFacade {
 
 	private static IFacade instance;
+	private IMechanicService mechanicService;
+	private IWorkplaceService workplaceService;
+	private IOrderService orderService;
 
 	private Facade() throws ReflectiveOperationException {
-		Inject.inject(this);
+		Configuration c = null;
+		Worker.getInstance().proccesing(c);
+		mechanicService = (IMechanicService) Inject.getClassInstance(IMechanicService.class);
+		orderService = (IOrderService) Inject.getClassInstance(IOrderService.class);
+		workplaceService = (IWorkplaceService) Inject.getClassInstance(IWorkplaceService.class);
+
 	}
 
 	public static IFacade getInstance() throws ReflectiveOperationException {
@@ -29,12 +40,6 @@ public class Facade implements IFacade {
 		}
 		return instance;
 	}
-    @Injector
-	private MechanicService mechanicService;
-    @Injector
-	private WorkplaceService workplaceService;
-    @Injector
-	private OrderService orderService;
 
 	public void addMechanic(Mechanic mechanic) {
 		mechanicService.addMechanic(mechanic);
@@ -143,6 +148,16 @@ public class Facade implements IFacade {
 		mechanicService.setMechanics(store.getMechanics());
 		orderService.setOrder(store.getOrders());
 		workplaceService.setWorkplaces(store.getWorkplaces());
+	}
+
+	public class Configuration {
+		@ConfigProperty(configName = "prop.properties", propertyName = "class.name", type = String.class)
+		private String s;
+		@ConfigProperty(configName = "prop.properties", propertyName = "class.value", type = Integer.class)
+		private int a;
+		@ConfigProperty(configName = "prop.properties", propertyName = "class.check", type = Boolean.class)
+		private boolean check;
+
 	}
 
 }
