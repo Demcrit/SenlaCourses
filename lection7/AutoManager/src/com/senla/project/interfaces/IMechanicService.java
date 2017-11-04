@@ -21,4 +21,11 @@ public interface IMechanicService  {
 	
 	public boolean exportAll();
 	public boolean importAll() throws NoSuchDataException;
+
+	void setMechanics(List<Mechanic> mechanics);
+
+	List<Mechanic> getMechanics();
+
+	Mechanic getMechanic(int id) throws NoSuchDataException;
+
 }

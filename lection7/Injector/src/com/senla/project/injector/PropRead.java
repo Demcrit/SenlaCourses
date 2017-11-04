@@ -2,20 +2,29 @@ package com.senla.project.injector;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.util.Map;
 import java.util.Properties;
+import org.apache.logging.log4j.*;
 
 public class PropRead {
-	public static final String PATH = "injector.properties";
-	public static Properties readFile() {
-		Properties prop = new Properties();
+	private static final Logger LOG = LogManager.getLogger(PropRead.class);
+	private static final String PATH = "injector.properties";
+	private static Map<Object, Object> properties;
 
-		try (InputStream input = new FileInputStream(PATH)) {
-			prop.load(input);
-			return prop;
+	public static void init() {
+		properties = new Properties();
+		try (FileInputStream input = new FileInputStream(PATH)) {
+			((Properties)properties).load(input);
 		} catch (IOException e) {
-			System.err.print(e);
-			return null;
+			LOG.error(e.getMessage());
 		}
 	}
+	
+	public static String getClassName(String key) {
+		if (properties == null) {
+			init();
+		}
+		return (String) properties.get(key);
+	}
+
 }

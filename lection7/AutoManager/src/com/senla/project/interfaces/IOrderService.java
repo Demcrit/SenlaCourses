@@ -1,7 +1,11 @@
 package com.senla.project.interfaces;
 
+import java.util.Date;
 import java.util.List;
+
+import com.senla.project.exceptions.NoSuchDataException;
 import com.senla.project.model.Order;
+import com.senla.project.model.Workplace;
 import com.senla.project.model.enums.OrderStatus;
 
 public interface IOrderService {
@@ -15,5 +19,13 @@ public interface IOrderService {
 	List <Order> getOrders();
 	
 	List <Order> getOrdersByStatus(OrderStatus orderStatus);
+
+	void setOrder(List<Order> orders);
+
+	int getNextOrdeId();
+
+	List<Workplace> getFreePlacesInDate(Date date);
+
+	Order getDirectOrder(int orderNumber) throws NoSuchDataException;
 	
 }
