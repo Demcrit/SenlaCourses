@@ -3,10 +3,12 @@ package com.senla.project.annotations.worker;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import com.senla.project.annotaions.ConfigProperty;
+import org.apache.logging.log4j.*;
 
 public class Worker {
 	private static final String PATH = "prop.properties";
 	private static Worker instance;
+	private final static Logger LOG = LogManager.getLogger(Worker.class);
 
 	private Worker() {
 
@@ -21,6 +23,7 @@ public class Worker {
 	}
 
 	public void proccesing(Object object) {
+		
 		Class<? extends Object> cl = object.getClass();
 		Values values = new Values();
 		for (Field field : cl.getDeclaredFields()) {
@@ -51,9 +54,9 @@ public class Worker {
 				try {
 					field.set(object, newValue);
 				} catch (IllegalArgumentException e) {
-					e.printStackTrace();
+					LOG.error(e);
 				} catch (IllegalAccessException e) {
-					e.printStackTrace();
+					LOG.error(e);
 				} finally {
 					field.setAccessible(false);
 					field.setAccessible(oldValues);
