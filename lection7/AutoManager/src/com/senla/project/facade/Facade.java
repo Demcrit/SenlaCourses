@@ -2,10 +2,8 @@ package com.senla.project.facade;
 
 import java.util.Date;
 import java.util.List;
-
 import com.senla.project.annotaions.ConfigProperty;
 import com.senla.project.annotations.worker.Worker;
-import com.senla.project.config.holder.Holder;
 import com.senla.project.exceptions.NoSuchDataException;
 import com.senla.project.injector.Inject;
 import com.senla.project.interfaces.IMechanicService;
@@ -24,10 +22,12 @@ public class Facade implements IFacade {
 	private IMechanicService mechanicService;
 	private IWorkplaceService workplaceService;
 	private IOrderService orderService;
-
+	
+	@ConfigProperty(configName = "prop.properties", propertyName = "system.path", type = String.class)
+	private String path;
+	
 	private Facade() throws ReflectiveOperationException {
-		Configuration c = null;
-		Worker.getInstance().proccesing(c);
+		Worker.getInstance().proccesing(this);
 		mechanicService = (IMechanicService) Inject.getClassInstance(IMechanicService.class);
 		orderService = (IOrderService) Inject.getClassInstance(IOrderService.class);
 		workplaceService = (IWorkplaceService) Inject.getClassInstance(IWorkplaceService.class);
@@ -131,7 +131,6 @@ public class Facade implements IFacade {
 	}
 
 	public void serialize() {
-		String path = Holder.getInstance().getDBPath();
 		Storage store = new Storage();
 		store.setMechanics(mechanicService.getMechanics());
 		store.setOrders(orderService.getOrders());
@@ -140,7 +139,6 @@ public class Facade implements IFacade {
 	}
 
 	public void deserialize() {
-		String path = Holder.getInstance().getDBPath();
 		Storage store = (Storage) SerializatorUtl.readObject(path);
 		if (store == null) {
 			return;
@@ -148,16 +146,6 @@ public class Facade implements IFacade {
 		mechanicService.setMechanics(store.getMechanics());
 		orderService.setOrder(store.getOrders());
 		workplaceService.setWorkplaces(store.getWorkplaces());
-	}
-
-	public class Configuration {
-		@ConfigProperty(configName = "prop.properties", propertyName = "class.name", type = String.class)
-		private String s;
-		@ConfigProperty(configName = "prop.properties", propertyName = "class.value", type = Integer.class)
-		private int a;
-		@ConfigProperty(configName = "prop.properties", propertyName = "class.check", type = Boolean.class)
-		private boolean check;
-
 	}
 
 }
