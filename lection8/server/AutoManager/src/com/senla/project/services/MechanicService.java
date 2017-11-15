@@ -15,14 +15,16 @@ public class MechanicService implements IMechanicService, Serializable {
 
 	@Override
 	public void addMechanic(Mechanic mechanic) {
-		mechanicStore.addMechanic(mechanic);
-
+		synchronized (mechanicStore) {
+			mechanicStore.addMechanic(mechanic);
+		}
 	}
 
 	@Override
 	public void deleteMechanic(Mechanic mechanic) {
-		mechanicStore.deleteMechanic(mechanic);
-
+		synchronized (mechanicStore) {
+			mechanicStore.deleteMechanic(mechanic);
+		}
 	}
 
 	@Override
@@ -41,11 +43,15 @@ public class MechanicService implements IMechanicService, Serializable {
 	}
 
 	public List<Mechanic> getAll() {
-		return mechanicStore.getAllMechanics();
+		synchronized (mechanicStore) {
+			return mechanicStore.getAllMechanics();
+		}
 	}
 
 	public Mechanic getMechanic(int id) throws NoSuchDataException {
-		return mechanicStore.getMechanic(id);
+		synchronized (mechanicStore) {
+			return mechanicStore.getMechanic(id);
+		}
 	}
 
 	public List<Mechanic> getMechanics() {
@@ -59,8 +65,8 @@ public class MechanicService implements IMechanicService, Serializable {
 	public boolean exportAll() {
 		return mechanicStore.exportAll();
 	}
-	
-	public boolean importAll() throws NoSuchDataException{
+
+	public boolean importAll() throws NoSuchDataException {
 		return mechanicStore.importAll();
 	}
 

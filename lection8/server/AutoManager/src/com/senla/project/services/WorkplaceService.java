@@ -13,14 +13,16 @@ public class WorkplaceService implements IWorkplaceService {
 
 	@Override
 	public void addWorkplace(Workplace workplace) {
-		workplaceStore.addWorkplace(workplace);
-
+		synchronized (workplaceStore) {
+			workplaceStore.addWorkplace(workplace);
+		}
 	}
 
 	@Override
 	public void deleteWorkplace(Workplace workplace) {
-		workplaceStore.deleteWorkplace(workplace);
-
+		synchronized (workplaceStore) {
+			workplaceStore.deleteWorkplace(workplace);
+		}
 	}
 
 	@Override
@@ -29,7 +31,9 @@ public class WorkplaceService implements IWorkplaceService {
 	}
 
 	public List<Workplace> getWorkplaces() {
-		return workplaceStore.getWorkplaces();
+		synchronized (workplaceStore) {
+			return workplaceStore.getWorkplaces();
+		}
 	}
 
 	public void setWorkplaces(List<Workplace> workplaces) {

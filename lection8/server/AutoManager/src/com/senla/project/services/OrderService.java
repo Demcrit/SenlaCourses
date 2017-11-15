@@ -16,13 +16,16 @@ public class OrderService implements IOrderService {
 
 	@Override
 	public void addOrder(Order order) {
-		orderStore.addOrder(order);
-
+		synchronized (orderStore) {
+			orderStore.addOrder(order);
+		}
 	}
 
 	@Override
 	public void deleteOrder(Order order) {
-		orderStore.deleteOrder(order);
+		synchronized (orderStore) {
+			orderStore.deleteOrder(order);
+		}
 	}
 
 	@Override
@@ -33,7 +36,9 @@ public class OrderService implements IOrderService {
 
 	@Override
 	public List<Order> getOrders() {
-		return orderStore.getOrders();
+		synchronized (orderStore) {
+			return orderStore.getOrders();
+		}
 	}
 
 	@Override
@@ -42,7 +47,9 @@ public class OrderService implements IOrderService {
 	}
 
 	public Order getDirectOrder(int orderNumber) throws NoSuchDataException {
-		return orderStore.getDirectOrder(orderNumber);
+		synchronized (orderStore) {
+			return orderStore.getDirectOrder(orderNumber);
+		}
 	}
 
 	public List<Workplace> getFreePlacesInDate(Date date) {
