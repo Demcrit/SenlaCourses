@@ -1,10 +1,10 @@
 use autoservice;
-insert into task value (null, 'todo description for first task', now(),'2017-01-30','2017-02-05', 200);
-insert into task value (null, 'todo description for second task', now(),'2017-01-27','2017-01-31', 150.50);
+insert into task value (null, 'task 1 blabla', now(),'2017-01-30','2017-02-05', 200);
+insert into task value (null, 'task 2 blabla', now(),'2017-01-27','2017-01-31', 150.50);
 
-insert into mechanic value (null, 'alex alexandrov', null);
-insert into mechanic value (null, 'sergey sergeev', null);
-insert into mechanic value (null, 'denis denisov', null);
+insert into mechanic value (null, 'alex alga', null);
+insert into mechanic value (null, 'serg serge', null);
+insert into mechanic value (null, 'john weak', null);
 
 insert into workplace values (null,null),(null,null);
 insert into workplace values (null,null),(null,null);
