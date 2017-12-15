@@ -4,10 +4,10 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Savepoint;
 import java.util.List;
-import com.senla.project.dao.realization.MechanicDao;
-import com.senla.project.dao.realization.OrderDao;
-import com.senla.project.dao.realization.TaskDao;
-import com.senla.project.dao.realization.WorkplaceDao;
+import com.senla.project.dao.api.IMechanicDao;
+import com.senla.project.dao.api.IOrderDao;
+import com.senla.project.dao.api.ITaskDao;
+import com.senla.project.dao.api.IWorkplaceDao;
 import com.senla.project.dbconnector.DBAccess;
 import com.senla.project.exceptions.NoSuchDataException;
 import com.senla.project.injector.Inject;
@@ -18,8 +18,10 @@ import com.senla.project.model.enums.OrderStatus;
 
 public class OrderService implements IOrderService {
 
-	private OrderDao orderDAO = new OrderDao();
-	private TaskDao taskDAO = new TaskDao();
+	private IOrderDao orderDAO = (IOrderDao) Inject.getClassInstance(IOrderDao.class);
+	private ITaskDao taskDAO = (ITaskDao) Inject.getClassInstance(ITaskDao.class);
+	private IMechanicDao mechanicDAO = (IMechanicDao) Inject.getClassInstance(IMechanicDao.class);
+	private IWorkplaceDao workPlaceDAO = (IWorkplaceDao) Inject.getClassInstance(IWorkplaceDao.class);
 	private DBAccess dbAccess;
 
 	@Override
@@ -31,9 +33,7 @@ public class OrderService implements IOrderService {
 			savepoint = connection.setSavepoint();
 			orderDAO.update(connection, (Order) order);
 			taskDAO.create(connection, order.getTask());
-			MechanicDao mechanicDAO = (MechanicDao) Inject.getClassInstance(MechanicDao.class);
 			mechanicDAO.update(connection, order.getMechanic());
-			WorkplaceDao workPlaceDAO = (WorkplaceDao) Inject.getClassInstance(WorkplaceDao.class);
 			workPlaceDAO.update(connection, (Workplace) order.getWorkplace());
 			connection.commit();
 			connection.setAutoCommit(true);
@@ -51,7 +51,7 @@ public class OrderService implements IOrderService {
 	}
 
 	@Override
-	public void deleteOrder(int orderId) {
+	public void deleteOrder(int orderId) throws SQLException {
 		synchronized (orderDAO) {
 			orderDAO.delete(dbAccess.getConnection(), orderId);
 		}

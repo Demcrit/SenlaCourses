@@ -3,7 +3,6 @@ package com.senla.project.dao.realization;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import com.senla.project.dao.api.AbstractDao;
 import com.senla.project.dao.api.ITaskDao;
 import com.senla.project.dao.util.DateParser;
 import com.senla.project.model.Task;
@@ -77,6 +76,5 @@ public class TaskDao extends AbstractDao<Task> implements ITaskDao {
 
 	}
 
-
-
+	
 }

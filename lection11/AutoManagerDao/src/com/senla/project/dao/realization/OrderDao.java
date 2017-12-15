@@ -7,14 +7,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import com.senla.project.dao.api.AbstractDao;
+
 import com.senla.project.dao.api.IOrderDao;
 import com.senla.project.injector.Inject;
 import com.senla.project.model.Order;
 import com.senla.project.model.enums.OrderStatus;
 
-public class OrderDao extends AbstractDao<Order> implements IOrderDao{
-	
+public class OrderDao extends AbstractDao<Order> implements IOrderDao {
+
 	private static final String ID_WORKPLACE = "id_workplace";
 	private static final String FULL_NAME = "full_name";
 	private static final String TO_DO = "to_do";
@@ -72,7 +72,7 @@ public class OrderDao extends AbstractDao<Order> implements IOrderDao{
 	public List<Order> sortOrdersByStartDateAction(Connection connection) {
 		return getAll(connection, START_DATE);
 	}
-	
+
 	@Override
 	protected String getByIdQuery() {
 		return SELECT_ORDER_BY_ID;
@@ -90,7 +90,7 @@ public class OrderDao extends AbstractDao<Order> implements IOrderDao{
 
 	@Override
 	protected String getAllQuery() {
-	return SELECT_ALL_FROM_ORDER;	
+		return SELECT_ALL_FROM_ORDER;
 	}
 
 	@Override
@@ -103,7 +103,7 @@ public class OrderDao extends AbstractDao<Order> implements IOrderDao{
 		prepareInsertStatement(statement, object);
 		statement.setString(4, object.getOrderstatus().toString());
 		statement.setInt(5, object.getId());
-		
+
 	}
 
 	@Override
@@ -111,7 +111,7 @@ public class OrderDao extends AbstractDao<Order> implements IOrderDao{
 		statement.setInt(1, object.getMechanic().getId());
 		statement.setInt(2, object.getWorkplace().getId());
 		statement.setInt(3, object.getTask().getId());
-		
+
 	}
 
 	@Override
@@ -132,7 +132,7 @@ public class OrderDao extends AbstractDao<Order> implements IOrderDao{
 			}
 
 			if (resultSet.findColumn(ID_WORKPLACE) > 0) {
-				WorkplaceDao workPlaceDAO = (WorkplaceDao)Inject.getClassInstance(WorkplaceDao.class);
+				WorkplaceDao workPlaceDAO = (WorkplaceDao) Inject.getClassInstance(WorkplaceDao.class);
 				temp.setWorkplace(workPlaceDAO.parseEntity(resultSet));
 			}
 

@@ -1,5 +1,6 @@
 package com.senla.project.interfaces;
 
+import java.sql.SQLException;
 import java.util.List;
 import com.senla.project.exceptions.NoSuchDataException;
 import com.senla.project.model.Order;
@@ -9,7 +10,7 @@ public interface IOrderService {
 	
 	void addOrder(Order order);
 	
-	void deleteOrder(int orderId);
+	void deleteOrder(int orderId) throws SQLException;
 	
 	List <Order> getOrders();
 	

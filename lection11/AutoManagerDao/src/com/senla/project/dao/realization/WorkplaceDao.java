@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import com.senla.project.dao.api.AbstractDao;
 import com.senla.project.dao.api.IWorkplaceDao;
 import com.senla.project.exceptions.NoSuchDataException;
 import com.senla.project.model.Workplace;

@@ -13,7 +13,7 @@ public class MechanicService implements IMechanicService, Serializable {
 	private static final long serialVersionUID = 1L;
 	private MechanicDao mechanicDAO = new MechanicDao();
 	private DBAccess dbAccess;
-
+    
 	@Override
 	public void addMechanic(String fullName) {
 		synchronized (mechanicDAO) {
