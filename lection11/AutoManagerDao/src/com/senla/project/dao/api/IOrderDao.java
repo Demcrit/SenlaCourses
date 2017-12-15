@@ -6,7 +6,8 @@ import com.senla.project.model.Order;
 import com.senla.project.model.enums.OrderStatus;
 
 
-public interface IOrderDao {
+public interface IOrderDao extends IBaseDao<Order> {
+	
 	List<Order> getAll(Connection connection, OrderStatus orderStatus);
 
 	List<Order> sortOrdersByCompleteDateAction(Connection connection);

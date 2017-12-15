@@ -1,5 +1,6 @@
 package com.senla.project.facade;
 
+import java.sql.SQLException;
 import java.util.List;
 import com.senla.project.exceptions.NoSuchDataException;
 import com.senla.project.model.Mechanic;
@@ -22,7 +23,7 @@ public interface IFacade {
 
 	public void addOrder(Order order);
 
-	public void deleteOrder(int orderId);
+	public void deleteOrder(int orderId) throws SQLException;
 
 	public List<Order> getOrders();
 
