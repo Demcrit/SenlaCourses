@@ -1,5 +1,7 @@
 package com.senla.project.dao.api;
 
-public interface ITaskDao {
+import com.senla.project.model.Task;
+
+public interface ITaskDao  extends IBaseDao<Task>{
 
 }

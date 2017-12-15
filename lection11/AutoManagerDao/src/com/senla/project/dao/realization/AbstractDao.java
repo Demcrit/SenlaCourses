@@ -1,4 +1,4 @@
-package com.senla.project.dao.api;
+package com.senla.project.dao.realization;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,7 +10,9 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public abstract class AbstractDao<T> {
+import com.senla.project.dao.api.IBaseDao;
+
+public abstract class AbstractDao<T> implements IBaseDao <T>{
 	protected Logger LOG = LogManager.getLogger(AbstractDao.class);
 	protected static final String SQL_ERROR = "SQL Error";
 
@@ -26,7 +28,8 @@ public abstract class AbstractDao<T> {
 
 	protected abstract T parseEntity(ResultSet resultSet);
 
-	public T getById(Connection connection, int id) {
+	@Override
+	public T getById(Connection connection, Integer id) {
 
 		PreparedStatement statement = null;
 		try {
@@ -50,6 +53,7 @@ public abstract class AbstractDao<T> {
 		}
 	}
 
+	@Override
 	public void create(Connection connection, T object) {
 
 		PreparedStatement statement = null;
@@ -68,7 +72,8 @@ public abstract class AbstractDao<T> {
 		}
 	}
 
-	public void delete(Connection connection, int id) {
+	@Override
+	public void delete(Connection connection, Integer id) {
 
 		PreparedStatement statement = null;
 		try {
@@ -87,6 +92,7 @@ public abstract class AbstractDao<T> {
 		}
 	}
 
+	@Override
 	public void update(Connection connection, T object) {
 
 		PreparedStatement statement = null;
@@ -105,6 +111,7 @@ public abstract class AbstractDao<T> {
 		}
 	}
 
+	@Override
 	public List<T> getAll(Connection connection, String... sortingColumn) {
 
 		List<T> tempList = new ArrayList<>();

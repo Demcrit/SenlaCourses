@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
-import com.senla.project.dao.api.AbstractDao;
 import com.senla.project.dao.api.IMechanicDao;
 import com.senla.project.exceptions.NoSuchDataException;
 import com.senla.project.model.Mechanic;
@@ -23,7 +22,7 @@ public class MechanicDao extends AbstractDao<Mechanic> implements IMechanicDao {
 	private static final String DELETE_MECHANIC_BY_ID = "delete from mechanic where id_mechanic = ?";
 	private static final String SELECT_MECHANIC_BY_ID = "select * from mechanic where id_mechanic = ?";
 	private static final String INSERT_MECHANIC = "insert into mechanic(full_name) value (?)";
-	
+
 	@Override
 	protected String getByIdQuery() {
 		return SELECT_MECHANIC_BY_ID;
@@ -56,8 +55,9 @@ public class MechanicDao extends AbstractDao<Mechanic> implements IMechanicDao {
 		} catch (SQLException e) {
 			LOG.error(SQL_ERROR);
 			return null;
+		}
 	}
-	}
+
 	@Override
 	public Mechanic findFreeMechanic(Connection connection) throws NoSuchDataException {
 		Statement statement = null;
@@ -91,7 +91,6 @@ public class MechanicDao extends AbstractDao<Mechanic> implements IMechanicDao {
 		return getAll(connection, ID_ORDER);
 	}
 
-
 	@Override
 	protected void prepareUpdateStatement(PreparedStatement statement, Mechanic object) throws SQLException {
 		statement.setInt(1, object.getCurrenOrder().getId());
@@ -102,7 +101,5 @@ public class MechanicDao extends AbstractDao<Mechanic> implements IMechanicDao {
 	protected void prepareInsertStatement(PreparedStatement statement, Mechanic object) throws SQLException {
 		statement.setString(1, object.getFullName());
 	}
-
-	
 
 }

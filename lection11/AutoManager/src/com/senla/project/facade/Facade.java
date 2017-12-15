@@ -1,5 +1,6 @@
 package com.senla.project.facade;
 
+import java.sql.SQLException;
 import java.util.List;
 import com.senla.project.annotaions.ConfigProperty;
 import com.senla.project.annotations.worker.Worker;
@@ -69,7 +70,7 @@ public class Facade implements IFacade {
 
 	}
 
-	public void deleteOrder(int orderId) {
+	public void deleteOrder(int orderId) throws SQLException {
 		orderService.deleteOrder(orderId);
 	}
 
