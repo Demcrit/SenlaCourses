@@ -1,0 +1,17 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.senla</groupId>
+  <artifactId>automanager</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <modules>
+  	<module>db-connector</module>
+  	<module>automanager-ui</module>
+  	<module>automanager-model</module>
+  	<module>automanager-dependency</module>
+  	<module>automanager-dao</module>
+  	<module>automanager-core</module>
+  	<module>automanager-configurator</module>
+  	<module>automanager-annotations</module>
+  </modules>
+</project>
