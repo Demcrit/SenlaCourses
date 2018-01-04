@@ -1,21 +1,23 @@
 package com.senla.dao.api;
 
-import java.sql.Connection;
 import java.util.List;
+
+import org.hibernate.Session;
+
 import com.senla.model.Order;
 import com.senla.model.enums.OrderStatus;
 
 
 public interface IOrderDao extends IBaseDao<Order> {
 	
-	List<Order> getAll(Connection connection, OrderStatus orderStatus);
+	List<Order> getAll(Session session, OrderStatus orderStatus);
 
-	List<Order> sortOrdersByCompleteDateAction(Connection connection);
+	List<Order> sortOrdersByCompleteDateAction(Session session);
 
-	List<Order> sortOrdersByPriceAction(Connection connection);
+	List<Order> sortOrdersByPriceAction(Session session);
 
-	List<Order> sortOrdersByRequestDateAction(Connection connection);
+	List<Order> sortOrdersByRequestDateAction(Session session);
 
-	List<Order> sortOrdersByStartDateAction(Connection connection);
+	List<Order> sortOrdersByStartDateAction(Session session);
 
 	}

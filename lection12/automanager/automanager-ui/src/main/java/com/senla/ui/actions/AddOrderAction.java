@@ -30,7 +30,6 @@ public class AddOrderAction implements IAction {
 			
 			Order order = new Order(freeMechanic, freeWorkPlace, task);
 			
-			Facade.getInstance().addOrder(order);
 			freeMechanic.setCurrenOrder(order);
 			freeWorkPlace.setOrder(order);
 			

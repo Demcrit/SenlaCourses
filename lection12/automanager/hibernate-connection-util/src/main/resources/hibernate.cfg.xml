@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+	<session-factory>
+
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/autoservice?useSSL=false</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password">root</property>
+
+		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+
+		<property name="connection.pool_size">1</property>
+
+		<property name="hibernate.hbm2ddl.auto">create</property>
+
+		<property name="show_sql">true</property>
+
+		<mapping class="com.senla.model.Task" />
+		<mapping class="com.senla.model.Mechanic" />
+		<mapping class="com.senla.model.Order" />
+		<mapping class="com.senla.model.Workplace" />
+
+	</session-factory>
+
+</hibernate-configuration>

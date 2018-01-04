@@ -8,7 +8,7 @@ import com.senla.model.enums.OrderStatus;
 
 public interface IOrderService {
 	
-	void addOrder(Order order);
+	void addOrder(Order order) throws SQLException;
 	
 	void deleteOrder(int orderId) throws SQLException;
 	

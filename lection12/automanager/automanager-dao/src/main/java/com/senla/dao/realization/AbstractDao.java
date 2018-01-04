@@ -1,133 +1,54 @@
 package com.senla.dao.realization;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.*;
+import org.hibernate.ObjectNotFoundException;
+import org.hibernate.Session;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 
 import com.senla.dao.api.IBaseDao;
 
 public abstract class AbstractDao<T> implements IBaseDao <T>{
 	protected Logger LOG = LogManager.getLogger(AbstractDao.class);
-	protected static final String SQL_ERROR = "SQL Error";
 
-	protected abstract String getByIdQuery();
-	protected abstract String getInsertQuery();
-	protected abstract String getDeleteQuery();
-	protected abstract String getAllQuery();
-	protected abstract String getUpdateQuery();
-
-	protected abstract void prepareUpdateStatement(PreparedStatement statement, T object) throws SQLException;
-
-	protected abstract void prepareInsertStatement(PreparedStatement statement, T object) throws SQLException;
-
-	protected abstract T parseEntity(ResultSet resultSet);
-
-	public T getById(Connection connection, Integer id) {
-
-		PreparedStatement statement = null;
-		try {
-			statement = connection.prepareStatement(getByIdQuery());
-			statement.setInt(1, id);
-			ResultSet rs = statement.executeQuery();
-			if (rs.next()) {
-				return parseEntity(rs);
-			}
-			return null;
-
-		} catch (SQLException e) {
-			LOG.error(SQL_ERROR);
-			return null;
-		} finally {
-			try {
-				statement.close();
-			} catch (SQLException e) {
-				LOG.error(SQL_ERROR, e);
-			}
-		}
+	protected Class<T> clazz;
+	
+	public AbstractDao(Class<T> clazz) {
+		this.clazz = clazz;
 	}
 
-	public void create(Connection connection, T object) {
-
-		PreparedStatement statement = null;
-		try {
-			statement = connection.prepareStatement(getInsertQuery());
-			prepareInsertStatement(statement, object);
-			statement.executeUpdate();
-		} catch (SQLException e) {
-			LOG.error(SQL_ERROR);
-		} finally {
-			try {
-				statement.close();
-			} catch (SQLException e) {
-				LOG.error(SQL_ERROR, e);
-			}
-		}
+	@SuppressWarnings("unchecked")
+	public T getById(Session session, Integer id) {
+		return (T) session.get(returnClass(), id);		
 	}
 
-	public void delete(Connection connection, Integer id) {
-
-		PreparedStatement statement = null;
-		try {
-			statement = connection.prepareStatement(getDeleteQuery());
-			statement.setInt(1, id);
-			if (statement.executeUpdate() == 0) {
-						}
-		} catch (SQLException e) {
-			LOG.error(SQL_ERROR);
-		} finally {
-			try {
-				statement.close();
-			} catch (SQLException e) {
-				LOG.error(SQL_ERROR, e);
-			}
-		}
+	public void create(Session session, T object) {
+		session.save(object);
 	}
 
-	public void update(Connection connection, T object) {
-
-		PreparedStatement statement = null;
-		try {
-			statement = connection.prepareStatement(getUpdateQuery());
-			prepareUpdateStatement(statement, object);
-			statement.executeUpdate();
-		} catch (SQLException e) {
-			LOG.error(SQL_ERROR);
-		} finally {
-			try {
-				statement.close();
-			} catch (SQLException e) {
-				LOG.error(SQL_ERROR, e);
-			}
+	public void delete(Session session, T object) {
+             session.delete(object);
 		}
+
+	public void update(Session session, T object) {
+		session.update(object);
 	}
 
-	public List<T> getAll(Connection connection, String... sortingColumn) {
-
-		List<T> tempList = new ArrayList<>();
-		Statement statement = null;
-		try {
-			statement = connection.createStatement();
-			String query = (sortingColumn.length == 1) ? getAllQuery() + " order by " + sortingColumn[0]
-					: getAllQuery();
-			ResultSet resultSet = statement.executeQuery(query);
-			while (resultSet.next()) {
-				tempList.add(parseEntity(resultSet));
-			}
-			return tempList;
-		} catch (SQLException e) {
-			LOG.error(SQL_ERROR);
-			return null;
-		} finally {
-			try {
-				statement.close();
-			} catch (SQLException e) {
-				LOG.error(SQL_ERROR, e);
-			}
-		}
+	@SuppressWarnings("unchecked")
+	public T getProxyById(Session session, Integer id) throws ObjectNotFoundException {
+		return (T) session.load(returnClass(), id);
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<T> getAll(Session session, String... sortingColumn) {
+		if (sortingColumn.length > 0) {
+			return session.createCriteria(returnClass()).add(Restrictions.isNotNull(sortingColumn[0])).addOrder(Order.asc(sortingColumn[0])).list();
+		}
+		return session.createCriteria(returnClass()).list();
+		}
+	
+	protected Class<T> returnClass(){
+		return clazz;
+}
 }

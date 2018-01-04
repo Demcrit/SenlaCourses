@@ -66,7 +66,7 @@ public class Facade implements IFacade {
 		return mechanicService.getAll();
 	}
 
-	public void addOrder(Order order) {
+	public void addOrder(Order order) throws SQLException {
 		orderService.addOrder(order);
 
 	}

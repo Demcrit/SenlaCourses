@@ -1,16 +1,17 @@
 package com.senla.dao.api;
 
-import java.sql.Connection;
 import java.util.List;
+
+import org.hibernate.Session;
 
 import com.senla.exceptions.NoSuchDataException;
 import com.senla.model.Mechanic;
 
 public interface IMechanicDao extends IBaseDao<Mechanic>{
 	
-	Mechanic findFreeMechanic(Connection connection) throws NoSuchDataException;
+	Mechanic findFreeMechanic(Session session) throws NoSuchDataException;
 
-	List<Mechanic> sortMechanicsByFullName(Connection connection);
+	List<Mechanic> sortMechanicsByFullName(Session session);
 
-	List<Mechanic> sortMechanicsByWork(Connection connection);
+	List<Mechanic> sortMechanicsByWork(Session session);
 }

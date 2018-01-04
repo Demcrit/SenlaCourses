@@ -13,5 +13,6 @@
   	<module>automanager-core</module>
   	<module>automanager-configurator</module>
   	<module>automanager-annotations</module>
+  	<module>hibernate-connection-util</module>
   </modules>
 </project>

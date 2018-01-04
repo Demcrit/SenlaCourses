@@ -1,15 +1,28 @@
 package com.senla.model;
 
 import java.io.Serializable;
-import com.senla.annotaions.*;
 
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
+@Entity
 public class Mechanic implements Serializable {
 	
 	private static final long serialVersionUID = 2474702210933977527L;
-	@ConfigProperty(configName = "prop.properties",propertyName = "general.id",type = Integer.class)
+	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@ConfigProperty(configName = "prop.properties",propertyName = "mechanic.name",type = String.class)
+	
 	private String fullName;
+	
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name = "id_order", nullable = true)
 	private Order currenOrder;
 
 	public Mechanic(String fullName) {

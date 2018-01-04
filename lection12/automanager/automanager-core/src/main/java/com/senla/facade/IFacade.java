@@ -21,7 +21,7 @@ public interface IFacade {
 
 	public List<Mechanic> getAll();
 
-	public void addOrder(Order order);
+	public void addOrder(Order order) throws SQLException;
 
 	public void deleteOrder(int orderId) throws SQLException;
 

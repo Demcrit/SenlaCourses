@@ -2,41 +2,92 @@ package com.senla.services;
 
 import java.util.List;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+
 import com.senla.dao.realization.WorkplaceDao;
 import com.senla.interfaces.IWorkplaceService;
-import com.senla.dbconnector.DBAccess;
 import com.senla.exceptions.NoSuchDataException;
 import com.senla.model.Workplace;
 
-public class WorkplaceService implements IWorkplaceService {
+public class WorkplaceService extends SessionAccess implements IWorkplaceService {
 
 	private WorkplaceDao workplaceDAO = new WorkplaceDao();
-	private DBAccess dbAccess;
-
+	
 	@Override
 	public void addWorkplace(Workplace workplace) {
-		synchronized (workplaceDAO) {
-			workplaceDAO.create(dbAccess.getConnection(), workplace);
-			;
+		Session session = null;
+
+		try {
+			session = getSession();
+			session.beginTransaction();
+			workplaceDAO.create(session, new Workplace());
+			session.getTransaction().commit();
+		} catch (HibernateException e) {
+			session.getTransaction().rollback();
+
+		} finally {
+			session.close();
 		}
 	}
 
 	@Override
 	public void deleteWorkplace(int workplaceId) {
-		synchronized (workplaceDAO) {
-			workplaceDAO.delete(dbAccess.getConnection(), workplaceId);
+		Session session = null;
+		Workplace tempObject = null;
+
+		try {
+			session = getSession();
+			session.beginTransaction();
+			tempObject = workplaceDAO.getProxyById(session, new Integer(workplaceId));
+			workplaceDAO.delete(session, tempObject);
+			session.getTransaction().commit();
+		} catch (HibernateException e) {
+			session.getTransaction().rollback();
+
+		} finally {
+			session.close();
 		}
 	}
 
 	@Override
 	public Workplace findFreeWorkPlace() throws NoSuchDataException {
-		return workplaceDAO.getFreePlace(dbAccess.getConnection());
+		Session session = null;
+		Workplace tempObject = null;
+
+		try {
+			session = getSession();
+			session.beginTransaction();
+			tempObject = workplaceDAO.getFreePlace(session);
+			session.getTransaction().commit();
+		} catch (HibernateException e) {
+			session.getTransaction().rollback();
+
+		} finally {
+			session.close();
+		}
+
+		return tempObject;
 	}
 
 	public List<Workplace> getWorkplaces() {
-		synchronized (workplaceDAO) {
-			return workplaceDAO.getAll(dbAccess.getConnection());
+		Session session = null;
+		List<Workplace> tempList = null;
+
+		try {
+			session = getSession();
+			session.beginTransaction();
+			tempList = workplaceDAO.getAll(session);
+			session.getTransaction().commit();
+			return tempList;
+		} catch (HibernateException e) {
+			session.getTransaction().rollback();
+			return null;
+
+		} finally {
+			session.close();
 		}
+		
 	}
 
 }

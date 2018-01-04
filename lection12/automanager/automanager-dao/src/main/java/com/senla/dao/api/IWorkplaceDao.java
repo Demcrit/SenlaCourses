@@ -1,15 +1,12 @@
 package com.senla.dao.api;
 
-import java.sql.Connection;
-
+import org.hibernate.Session;
 import com.senla.exceptions.NoSuchDataException;
 import com.senla.model.Workplace;
 
 public interface IWorkplaceDao extends IBaseDao<Workplace>{
 	
-	void create(Connection connection);
+	Workplace getFreePlace(Session session) throws NoSuchDataException;
 
-	Workplace getFreePlace(Connection connection) throws NoSuchDataException;
-
-	boolean removeWorkPlace(Connection connection,int placeID) throws NoSuchDataException;
+	void removeWorkPlace(Session session,int placeID) throws NoSuchDataException;
 }

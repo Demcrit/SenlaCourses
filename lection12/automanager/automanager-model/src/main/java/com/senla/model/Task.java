@@ -2,12 +2,28 @@ package com.senla.model;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+@Entity
 public class Task {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	private String commonTask;
+	
+	@Temporal(TemporalType.DATE)
 	private Date orderDate;
+	@Temporal(TemporalType.DATE)
 	private Date startDate;
+	@Temporal(TemporalType.DATE)
 	private Date endDate;
+	
 	private double price;
 	
 	public Task(int id,String commonTask,Date orderDate,Date startDate,Date endDate,double price){
