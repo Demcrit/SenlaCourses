@@ -7,27 +7,24 @@ import com.senla.injector.Inject;
 import com.senla.interfaces.IMechanicService;
 import com.senla.interfaces.IOrderService;
 import com.senla.interfaces.IWorkplaceService;
-import com.senla.annotaions.ConfigProperty;
 import com.senla.annotations.worker.Worker;
 import com.senla.exceptions.NoSuchDataException;
 import com.senla.model.Mechanic;
 import com.senla.model.Order;
 import com.senla.model.Workplace;
 import com.senla.model.enums.OrderStatus;
+import com.senla.services.MechanicService;
 
 public class Facade implements IFacade {
 
 	private static IFacade instance;
-	private IMechanicService mechanicService;
+	private IMechanicService mechanicService = new MechanicService();
 	private IWorkplaceService workplaceService;
 	private IOrderService orderService;
-
-	@ConfigProperty(configName = "prop.properties", propertyName = "system.path", type = String.class)
-	private String path;
-
+	
 	private Facade() throws ReflectiveOperationException {
 		Worker.getInstance().proccesing(this);
-		mechanicService = (IMechanicService) Inject.getClassInstance(IMechanicService.class);
+		//mechanicService = (IMechanicService) Inject.getClassInstance(IMechanicService.class);
 		orderService = (IOrderService) Inject.getClassInstance(IOrderService.class);
 		workplaceService = (IWorkplaceService) Inject.getClassInstance(IWorkplaceService.class);
 

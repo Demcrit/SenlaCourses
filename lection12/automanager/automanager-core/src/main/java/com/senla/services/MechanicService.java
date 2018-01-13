@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import com.senla.dao.realization.MechanicDao;
 import com.senla.interfaces.IMechanicService;
 import com.senla.exceptions.NoSuchDataException;
+import com.senla.hibernate.connector.DBAccess;
 import com.senla.model.Mechanic;
 
 public class MechanicService extends SessionAccess implements IMechanicService, Serializable {
@@ -115,7 +116,7 @@ public class MechanicService extends SessionAccess implements IMechanicService, 
 		List<Mechanic> tempList = null;
 
 		try {
-			session = getSession();
+			session = DBAccess.getInstance().getSessionFactory().openSession();
 			session.beginTransaction();
 			tempList = mechanicDAO.getAll(session);
 			session.getTransaction().commit();

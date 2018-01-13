@@ -32,12 +32,7 @@
   		<artifactId>automanager-dao</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
   	</dependency>
-  	<dependency>
-  		<groupId>com.senla</groupId>
-  		<artifactId>db-connector</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
-  	</dependency>
-  	<dependency>
+   	<dependency>
   		<groupId>com.senla</groupId>
   		<artifactId>hibernate-connection-util</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
