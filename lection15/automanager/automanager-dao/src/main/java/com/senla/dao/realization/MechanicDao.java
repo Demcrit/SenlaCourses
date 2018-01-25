@@ -8,6 +8,7 @@ import org.hibernate.criterion.Restrictions;
 import com.senla.dao.api.IMechanicDao;
 import com.senla.exceptions.NoSuchDataException;
 import com.senla.model.Mechanic;
+import com.senla.model.enums.Sorting;
 
 public class MechanicDao extends AbstractDao<Mechanic> implements IMechanicDao {
 
@@ -15,8 +16,6 @@ public class MechanicDao extends AbstractDao<Mechanic> implements IMechanicDao {
 		super(Mechanic.class);
 		}
 
-	private static final String ID_ORDER = "currentOrder";
-	private static final String FULL_NAME = "fullName";
 	
 	@Override
 	public Mechanic findFreeMechanic(Session session) throws NoSuchDataException {
@@ -25,14 +24,14 @@ public class MechanicDao extends AbstractDao<Mechanic> implements IMechanicDao {
 	}
 
 	@Override
-	public List<Mechanic> sortMechanicsByFullName(Session session) {
-		return getAll(session, FULL_NAME);
+	public List<Mechanic> sortMechanicsByFullName(Session session,Sorting sort) {
+		return getAll(session,sort);
 	}
 
 	@Override
-	public List<Mechanic> sortMechanicsByWork(Session session) {
-		return getAll(session, ID_ORDER);
+	public List<Mechanic> sortMechanicsByWork(Session session,Sorting sort) {
+		return getAll(session,sort);
 	}
 
-	
+
 }

@@ -34,6 +34,42 @@
   	<description></description>
   	<servlet-class>com.senla.servlets.WorkplaceServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>FindFreeMechanicServlet</servlet-name>
+  	<display-name>FindFreeMechanicServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.senla.servlets.FindFreeMechanicServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>CloneMechanicServlet</servlet-name>
+  	<display-name>CloneMechanicServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.senla.servlets.CloneMechanicServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>MechanicSortingServlet</servlet-name>
+  	<display-name>MechanicSortingServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.senla.servlets.MechanicSortingServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>OrderSortingServlet</servlet-name>
+  	<display-name>OrderSortingServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.senla.servlets.OrderSortingServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>OrderCloneServlet</servlet-name>
+  	<display-name>OrderCloneServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.senla.servlets.OrderCloneServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>OrderByStatusServlet</servlet-name>
+  	<display-name>OrderByStatusServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.senla.servlets.OrderByStatusServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>MechanicRestServlet</servlet-name>
   	<url-pattern>/MechanicRestServlet</url-pattern>
@@ -53,5 +89,29 @@
   <servlet-mapping>
   	<servlet-name>WorkplaceServlet</servlet-name>
   	<url-pattern>/WorkplaceServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>FindFreeMechanicServlet</servlet-name>
+  	<url-pattern>/FindFreeMechanicServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>CloneMechanicServlet</servlet-name>
+  	<url-pattern>/CloneMechanicServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>MechanicSortingServlet</servlet-name>
+  	<url-pattern>/MechanicSortingServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>OrderSortingServlet</servlet-name>
+  	<url-pattern>/OrderSortingServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>OrderCloneServlet</servlet-name>
+  	<url-pattern>/OrderCloneServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>OrderByStatusServlet</servlet-name>
+  	<url-pattern>/OrderByStatusServlet</url-pattern>
   </servlet-mapping>
   </web-app>

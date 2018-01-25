@@ -17,12 +17,12 @@ import com.senla.model.Order;
 
 import static com.senla.util.JsonMapper.*;
 
-public class OrderRestServlet extends HttpServlet {
+public class OrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String NULL = "{null}";
-	private static final Logger LOG = LogManager.getLogger(OrderRestServlet.class);
+	private static final Logger LOG = LogManager.getLogger(OrderServlet.class);
        
-    public OrderRestServlet() {
+    public OrderServlet() {
         super();
     }
 
@@ -31,7 +31,7 @@ public class OrderRestServlet extends HttpServlet {
 		try {
 			Order order = Facade.getInstance().getDirectOrder(id);
 			response.getWriter().print(prepareJson(order));
-		} catch (NoSuchDataException | ReflectiveOperationException e) {
+		} catch (NoSuchDataException e) {
 			LOG.info(e);
 			response.getWriter().print(NULL);
 	}
@@ -45,7 +45,7 @@ public class OrderRestServlet extends HttpServlet {
 		Integer id = Integer.parseInt(request.getParameter("id"));
 		try {
 			Facade.getInstance().deleteOrder(id);;
-		} catch (ReflectiveOperationException | SQLException e) {
+		} catch (SQLException e) {
 			LOG.info(e);
 		}
 

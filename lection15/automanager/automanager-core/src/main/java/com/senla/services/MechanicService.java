@@ -10,12 +10,13 @@ import com.senla.interfaces.IMechanicService;
 import com.senla.exceptions.NoSuchDataException;
 import com.senla.hibernate.connector.DBAccess;
 import com.senla.model.Mechanic;
+import com.senla.model.enums.Sorting;
 
 public class MechanicService extends SessionAccess implements IMechanicService, Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private MechanicDao mechanicDAO = new MechanicDao();
-	    
+
 	@Override
 	public void addMechanic(String fullName) {
 		Session session = null;
@@ -72,14 +73,14 @@ public class MechanicService extends SessionAccess implements IMechanicService, 
 	}
 
 	@Override
-	public List<Mechanic> sortMechanicsByName() {
+	public List<Mechanic> sortMechanicsByName(Sorting sort) {
 		Session session = null;
 		List<Mechanic> tempList = null;
 
 		try {
 			session = getSession();
 			session.beginTransaction();
-			tempList = mechanicDAO.sortMechanicsByFullName(session);
+			tempList = mechanicDAO.sortMechanicsByFullName(session, sort);
 			session.getTransaction().commit();
 			return tempList;
 		} catch (HibernateException e) {
@@ -92,14 +93,14 @@ public class MechanicService extends SessionAccess implements IMechanicService, 
 	}
 
 	@Override
-	public List<Mechanic> sortMechanicsByWork() {
+	public List<Mechanic> sortMechanicsByWork(Sorting sort) {
 		Session session = null;
 		List<Mechanic> tempList = null;
 
 		try {
 			session = getSession();
 			session.beginTransaction();
-			tempList = mechanicDAO.sortMechanicsByWork(session);
+			tempList = mechanicDAO.sortMechanicsByWork(session, sort);
 			session.getTransaction().commit();
 			return tempList;
 		} catch (HibernateException e) {
@@ -111,14 +112,14 @@ public class MechanicService extends SessionAccess implements IMechanicService, 
 		}
 	}
 
-	public List<Mechanic> getAll() {
+	public List<Mechanic> getAll(Sorting sort) {
 		Session session = null;
 		List<Mechanic> tempList = null;
 
 		try {
 			session = DBAccess.getInstance().getSessionFactory().openSession();
 			session.beginTransaction();
-			tempList = mechanicDAO.getAll(session);
+			tempList = mechanicDAO.getAll(session, sort);
 			session.getTransaction().commit();
 			return tempList;
 		} catch (HibernateException e) {
@@ -151,12 +152,28 @@ public class MechanicService extends SessionAccess implements IMechanicService, 
 
 	@Override
 	public boolean exportAll() {
-				return false;
+		return false;
 	}
 
 	@Override
 	public boolean importAll() throws NoSuchDataException {
 		return false;
+	}
+
+	@Override
+	public Mechanic cloneMechanic(int id) {
+		Session session = null;
+		Mechanic cloned = null;
+		try {
+			session = getSession();
+			session.beginTransaction();
+			Mechanic mechanic = mechanicDAO.getById(session, id);
+			cloned = (Mechanic) mechanic.clone();
+			session.getTransaction().commit();
+		} catch (CloneNotSupportedException e) {
+			session.getTransaction().rollback();
+				}
+		return cloned;
 	}
 
 }

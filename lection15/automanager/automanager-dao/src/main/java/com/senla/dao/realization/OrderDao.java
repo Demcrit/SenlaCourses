@@ -7,6 +7,7 @@ import org.hibernate.criterion.Restrictions;
 import com.senla.dao.api.IOrderDao;
 import com.senla.model.Order;
 import com.senla.model.enums.OrderStatus;
+import com.senla.model.enums.Sorting;
 
 public class OrderDao extends AbstractDao<Order> implements IOrderDao {
 	
@@ -14,12 +15,7 @@ public class OrderDao extends AbstractDao<Order> implements IOrderDao {
 	{
 		super(Order.class);
 	}
-
-	private static final String START_DATE = "start_date";
-	private static final String REQUEST_DATE = "request_date";
-	private static final String PRICE = "price";
-	private static final String COMPLETE_DATE = "complete_date";
-
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Order> getAll(Session session, OrderStatus orderStatus) {
@@ -27,23 +23,23 @@ public class OrderDao extends AbstractDao<Order> implements IOrderDao {
 	}
 
 	@Override
-	public List<Order> sortOrdersByCompleteDateAction(Session session) {
-		return getAll(session, COMPLETE_DATE);
+	public List<Order> sortOrdersByCompleteDateAction(Session session,Sorting sort) {
+		return getAll(session,sort);
 	}
 
 	@Override
-	public List<Order> sortOrdersByPriceAction(Session session) {
-		return getAll(session, PRICE);
+	public List<Order> sortOrdersByPriceAction(Session session,Sorting sort) {
+		return getAll(session,sort);
 	}
 
 	@Override
-	public List<Order> sortOrdersByRequestDateAction(Session session) {
-		return getAll(session, REQUEST_DATE);
+	public List<Order> sortOrdersByRequestDateAction(Session session,Sorting sort) {
+		return getAll(session,sort);
 	}
 
 	@Override
-	public List<Order> sortOrdersByStartDateAction(Session session) {
-		return getAll(session, START_DATE);
+	public List<Order> sortOrdersByStartDateAction(Session session,Sorting sort) {
+		return getAll(session,sort);
 	}
 
 }

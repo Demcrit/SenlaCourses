@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.senla.exceptions.NoSuchDataException;
 import com.senla.model.Workplace;
+import com.senla.model.enums.Sorting;
 
 public interface IWorkplaceService {
 
@@ -13,6 +14,6 @@ public interface IWorkplaceService {
 
 	Workplace findFreeWorkPlace() throws NoSuchDataException;
 
-	List<Workplace> getWorkplaces();
+	List<Workplace> getWorkplaces(Sorting sort);
 
 }

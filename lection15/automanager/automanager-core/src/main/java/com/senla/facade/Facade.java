@@ -13,6 +13,7 @@ import com.senla.model.Mechanic;
 import com.senla.model.Order;
 import com.senla.model.Workplace;
 import com.senla.model.enums.OrderStatus;
+import com.senla.model.enums.Sorting;
 import com.senla.services.MechanicService;
 
 public class Facade implements IFacade {
@@ -21,16 +22,17 @@ public class Facade implements IFacade {
 	private IMechanicService mechanicService = new MechanicService();
 	private IWorkplaceService workplaceService;
 	private IOrderService orderService;
-	
-	private Facade() throws ReflectiveOperationException {
+
+	private Facade() {
 		Worker.getInstance().proccesing(this);
-		//mechanicService = (IMechanicService) Inject.getClassInstance(IMechanicService.class);
+		// mechanicService = (IMechanicService)
+		// Inject.getClassInstance(IMechanicService.class);
 		orderService = (IOrderService) Inject.getClassInstance(IOrderService.class);
 		workplaceService = (IWorkplaceService) Inject.getClassInstance(IWorkplaceService.class);
 
 	}
 
-	public static IFacade getInstance() throws ReflectiveOperationException {
+	public static IFacade getInstance() {
 		if (instance == null) {
 			instance = new Facade();
 		}
@@ -51,16 +53,16 @@ public class Facade implements IFacade {
 		return mechanicService.findFreeMechanic();
 	}
 
-	public List<Mechanic> sortMechanicsByName() {
-		return mechanicService.sortMechanicsByName();
+	public List<Mechanic> sortMechanicsByName(Sorting sort) {
+		return mechanicService.sortMechanicsByName(sort);
 	}
 
-	public List<Mechanic> sortMechanicsByWork() {
-		return mechanicService.sortMechanicsByWork();
+	public List<Mechanic> sortMechanicsByWork(Sorting sort) {
+		return mechanicService.sortMechanicsByWork(sort);
 	}
 
-	public List<Mechanic> getAll() {
-		return mechanicService.getAll();
+	public List<Mechanic> getAll(Sorting sort) {
+		return mechanicService.getAll(sort);
 	}
 
 	public void addOrder(Order order) throws SQLException {
@@ -72,8 +74,8 @@ public class Facade implements IFacade {
 		orderService.deleteOrder(orderId);
 	}
 
-	public List<Order> getOrders() {
-		return orderService.getOrders();
+	public List<Order> getOrders(Sorting sort) {
+		return orderService.getOrders(sort);
 	}
 
 	public List<Order> getOrdersByStatus(OrderStatus orderStatus) {
@@ -110,21 +112,32 @@ public class Facade implements IFacade {
 	public boolean exportAll() {
 		return mechanicService.exportAll();
 	}
-	
-	public List<Order> sortOrdersByCompleteDateAction(){
-		return orderService.sortOrdersByCompleteDateAction();
+
+	public List<Order> sortOrdersByCompleteDateAction(Sorting sort) {
+		return orderService.sortOrdersByCompleteDateAction(sort);
 	}
-	
-	public List<Order> sortOrdersByPriceAction(){
-		return orderService.sortOrdersByPriceAction();
+
+	public List<Order> sortOrdersByPriceAction(Sorting sort) {
+		return orderService.sortOrdersByPriceAction(sort);
 	}
-	
-	public List<Order> sortOrdersByRequestDateAction() {
-		return orderService.sortOrdersByRequestDateAction();
+
+	public List<Order> sortOrdersByRequestDateAction(Sorting sort) {
+		return orderService.sortOrdersByRequestDateAction(sort);
 	}
-	
-	public List<Order> sortOrdersByStartDateAction(){
-		return orderService.sortOrdersByStartDateAction();
+
+	public List<Order> sortOrdersByStartDateAction(Sorting sort) {
+		return orderService.sortOrdersByStartDateAction(sort);
+	}
+
+	@Override
+	public Mechanic cloneMechanic(int id) {
+		return mechanicService.cloneMechanic(id);
+
+	}
+
+	@Override
+	public Order cloneOrder(int id) {
+		return orderService.cloneOrder(id);
 	}
 
 }

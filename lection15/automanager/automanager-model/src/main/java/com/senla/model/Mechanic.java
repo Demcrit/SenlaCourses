@@ -66,5 +66,10 @@ public class Mechanic implements Serializable {
 		String str = String.format("Mechanic: %s %o", this.fullName, this.currenOrder);
 		return str;
 	}
+	
+	  @Override
+	    public Object clone() throws CloneNotSupportedException {
+	        return super.clone();
+	    }
 
 }

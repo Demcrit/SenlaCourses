@@ -9,6 +9,7 @@ import com.senla.dao.realization.WorkplaceDao;
 import com.senla.interfaces.IWorkplaceService;
 import com.senla.exceptions.NoSuchDataException;
 import com.senla.model.Workplace;
+import com.senla.model.enums.Sorting;
 
 public class WorkplaceService extends SessionAccess implements IWorkplaceService {
 
@@ -70,14 +71,15 @@ public class WorkplaceService extends SessionAccess implements IWorkplaceService
 		return tempObject;
 	}
 
-	public List<Workplace> getWorkplaces() {
+	@Override
+	public List<Workplace> getWorkplaces(Sorting sort) {
 		Session session = null;
 		List<Workplace> tempList = null;
 
 		try {
 			session = getSession();
 			session.beginTransaction();
-			tempList = workplaceDAO.getAll(session);
+			tempList = workplaceDAO.getAll(session,sort);
 			session.getTransaction().commit();
 			return tempList;
 		} catch (HibernateException e) {

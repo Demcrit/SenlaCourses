@@ -10,6 +10,7 @@ import com.senla.interfaces.IOrderService;
 import com.senla.exceptions.NoSuchDataException;
 import com.senla.model.Order;
 import com.senla.model.enums.OrderStatus;
+import com.senla.model.enums.Sorting;
 
 public class OrderService extends SessionAccess implements IOrderService {
 
@@ -50,14 +51,14 @@ public class OrderService extends SessionAccess implements IOrderService {
 	}
 
 	@Override
-	public List<Order> getOrders() {
+	public List<Order> getOrders(Sorting sort) {
 		Session session = null;
 		List<Order> tempList = null;
 
 		try {
 			session = getSession();
 			session.beginTransaction();
-			tempList = orderDAO.getAll(session);
+			tempList = orderDAO.getAll(session,sort);
 			session.getTransaction().commit();
 			return tempList;
 		} catch (HibernateException e) {
@@ -87,6 +88,7 @@ public class OrderService extends SessionAccess implements IOrderService {
 		}
 	}
 
+	@Override
 	public Order getDirectOrder(int orderId) throws NoSuchDataException {
 		Session session = null;
 		Order tempObject = null;
@@ -106,14 +108,34 @@ public class OrderService extends SessionAccess implements IOrderService {
 		}
 	}
 
-	public List<Order> sortOrdersByCompleteDateAction() {
+	@Override
+	public List<Order> sortOrdersByCompleteDateAction(Sorting sort) {
 		Session session = null;
 		List<Order> tempList = null;
 
 		try {
 			session = getSession();
 			session.beginTransaction();
-			tempList = orderDAO.sortOrdersByCompleteDateAction(session);
+			tempList = orderDAO.sortOrdersByCompleteDateAction(session,sort);
+			session.getTransaction().commit();
+			return tempList;
+		} catch (HibernateException e) {
+			session.getTransaction().rollback();
+			return null;
+		} finally {
+			session.close();
+		}
+	}
+	
+	@Override
+	public List<Order> sortOrdersByPriceAction(Sorting sort) {
+		Session session = null;
+		List<Order> tempList = null;
+
+		try {
+			session = getSession();
+			session.beginTransaction();
+			tempList = orderDAO.sortOrdersByPriceAction(session,sort);
 			session.getTransaction().commit();
 			return tempList;
 		} catch (HibernateException e) {
@@ -124,14 +146,15 @@ public class OrderService extends SessionAccess implements IOrderService {
 		}
 	}
 
-	public List<Order> sortOrdersByPriceAction() {
+	@Override
+	public List<Order> sortOrdersByRequestDateAction(Sorting sort) {
 		Session session = null;
 		List<Order> tempList = null;
 
 		try {
 			session = getSession();
 			session.beginTransaction();
-			tempList = orderDAO.sortOrdersByPriceAction(session);
+			tempList = orderDAO.sortOrdersByRequestDateAction(session,sort);
 			session.getTransaction().commit();
 			return tempList;
 		} catch (HibernateException e) {
@@ -142,14 +165,15 @@ public class OrderService extends SessionAccess implements IOrderService {
 		}
 	}
 
-	public List<Order> sortOrdersByRequestDateAction() {
+	@Override
+	public List<Order> sortOrdersByStartDateAction(Sorting sort) {
 		Session session = null;
 		List<Order> tempList = null;
 
 		try {
 			session = getSession();
 			session.beginTransaction();
-			tempList = orderDAO.sortOrdersByRequestDateAction(session);
+			tempList = orderDAO.sortOrdersByStartDateAction(session,sort);
 			session.getTransaction().commit();
 			return tempList;
 		} catch (HibernateException e) {
@@ -160,21 +184,19 @@ public class OrderService extends SessionAccess implements IOrderService {
 		}
 	}
 
-	public List<Order> sortOrdersByStartDateAction() {
+	@Override
+	public Order cloneOrder(int id) {
 		Session session = null;
-		List<Order> tempList = null;
-
+		Order cloned = null;
 		try {
 			session = getSession();
 			session.beginTransaction();
-			tempList = orderDAO.sortOrdersByStartDateAction(session);
+			Order order = orderDAO.getById(session, id);
+			cloned = (Order) order.clone();
 			session.getTransaction().commit();
-			return tempList;
-		} catch (HibernateException e) {
+		} catch (CloneNotSupportedException e) {
 			session.getTransaction().rollback();
-			return null;
-		} finally {
-			session.close();
-		}
+				}
+		return cloned;
 	}
-}
+	}

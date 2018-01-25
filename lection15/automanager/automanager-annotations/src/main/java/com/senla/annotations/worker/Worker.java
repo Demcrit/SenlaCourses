@@ -16,7 +16,7 @@ public class Worker {
 
 	}
 
-	public static Worker getInstance() throws ReflectiveOperationException {
+	public static Worker getInstance() {
 
 		if (instance == null) {
 			instance = new Worker();
