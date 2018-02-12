@@ -1,6 +1,5 @@
 package com.senla.service;
 
-import java.io.IOException;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -27,13 +26,4 @@ public class JsonMapper {
 		}
 	}
 
-	public Object jsonToObject(String str, @SuppressWarnings("rawtypes") Class clazz) {
-		try {
-			@SuppressWarnings("unchecked")
-			Object obj = mapper.readValue(str, clazz);
-			return obj;
-		} catch (IOException e) {
-			}
-		return null;
-	}
 }

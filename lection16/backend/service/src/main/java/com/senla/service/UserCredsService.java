@@ -18,17 +18,17 @@ public class UserCredsService {
 	private UserDAO userDao;
 
 	@Transactional
-	public void addUserData(UserCreds userCreds) {
+	public void addUserCreds(UserCreds userCreds) {
 		userCredsDao.add(userCreds);
 	}
 
 	@Transactional
-	public void updateUserData(UserCreds userCreds) {
+	public void updateUserCreds(UserCreds userCreds) {
 		userCredsDao.update(userCreds);
 	}
 
 	@Transactional
-	public UserCreds getUserDataByUserId(Long id) {
+	public UserCreds getUserCreds(Long id) {
 		User user = userDao.getById(id);
 		UserCreds userCreds = userCredsDao.getUserData(user);
 		return userCreds;
